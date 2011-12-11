@@ -1,0 +1,430 @@
+<resources>
+<game_profile_page_info>
+  <has_ipurchase>false</has_ipurchase>
+  <is_owned_by_local_player>true</is_owned_by_local_player>
+  <has_chat_rooms>false</has_chat_rooms>
+  <has_challenges>false</has_challenges>
+  <suggestions_topic_id>1114704</suggestions_topic_id>
+  <has_achievements>true</has_achievements>
+  <has_featured_application>true</has_featured_application>
+  <short_name>DodgeIt</short_name>
+  <name>DodgeIt</name>
+  <has_leaderboards>true</has_leaderboards>
+  <id>397513</id>
+  <timestamp>2011-11-17 23:36:28</timestamp>
+</game_profile_page_info>
+<offline>
+<timestamp>2011-11-17 23:36:28</timestamp>
+<achievements>
+<achievement>
+<id>1364532</id>
+<title>Earned 30000 Points in SLOW Mode</title>
+<description>You've earned 30,000 points in SLOW Mode in 1 Game</description>
+<gamerscore>10</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>21</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1364542</id>
+<title>Earned 30000 Points in MEDIUM Mode</title>
+<description>You've earned 30,000 Points in MEDIUM Mode in 1 Game.</description>
+<gamerscore>10</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>20</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1364552</id>
+<title>Earned 30000 Points in FAST Mode</title>
+<description>You've earned 30,000 Points in FAST Mode in 1 Game.</description>
+<gamerscore>20</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>19</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368652</id>
+<title>Earned 60000 Points in SLOW Mode</title>
+<description>You've earned 60,000 Points in SLOW Mode in 1 Game.</description>
+<gamerscore>10</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>18</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368662</id>
+<title>Earned 60000 Points in MEDIUM Mode</title>
+<description>You've earned 60,000 Points in MEDIUM Mode in 1 Game.</description>
+<gamerscore>10</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>17</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368672</id>
+<title>Earned 60000 Points in FAST Mode</title>
+<description>You've earned 60,000 Points in FAST Mode in 1 Game.</description>
+<gamerscore>20</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>16</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368682</id>
+<title>Earned 120000 Points in SLOW Mode</title>
+<description>You've earned 120,000 Points in SLOW Mode in 1 Game.</description>
+<gamerscore>10</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>15</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368692</id>
+<title>Earned 120000 Points in MEDIUM Mode</title>
+<description>You've earned 120,000 Points in MEDIUM Mode in 1 Game.</description>
+<gamerscore>10</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>14</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368702</id>
+<title>Earned 120000 Points in FAST Mode</title>
+<description>You've earned 120,000 Points in FAST Mode in 1 Game.</description>
+<gamerscore>20</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>13</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368712</id>
+<title>Earned 500000 Points in SLOW Mode</title>
+<description>You've earned 500,000 Points in SLOW Mode in 1 Game.</description>
+<gamerscore>25</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>12</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368722</id>
+<title>Earned 500000 Points in MEDIUM Mode</title>
+<description>You've earned 500,000 Points in MEDIUM Mode in 1 Game.</description>
+<gamerscore>25</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>11</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368732</id>
+<title>Earned 500000 Points in FAST Mode</title>
+<description>You've earned 500,000 Points in FAST Mode in 1 Game.</description>
+<gamerscore>50</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>10</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368742</id>
+<title>Earned 30000 Points in ALL Modes</title>
+<description>You've earned 30,000 Points in ALL MODES</description>
+<gamerscore>20</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>9</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368752</id>
+<title>Earned 60000 Points in ALL Modes</title>
+<description>You've earned 60,000 Points in ALL MODES</description>
+<gamerscore>20</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>8</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368762</id>
+<title>Earned 120000 Points in ALL Modes</title>
+<description>You've earned 120,000 Points in ALL Modes</description>
+<gamerscore>30</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>7</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368772</id>
+<title>Earned 500000 Points in ALL Modes</title>
+<description>You've earned 500,000 Points in ALL MODES</description>
+<gamerscore>60</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>6</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368782</id>
+<title>Earned 250,000 Cumulative Points</title>
+<description>You've earned 250,000 Cumulative Points!</description>
+<gamerscore>10</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>5</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368792</id>
+<title>Earned 750,000 Cumulative Points</title>
+<description>You've earned 750,000 Cumulative Points!</description>
+<gamerscore>20</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>4</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368802</id>
+<title>Earned 1,500,000 Cumulative Points</title>
+<description>You've earned 1,500,000 Cumulative Points!</description>
+<gamerscore>40</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>3</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368812</id>
+<title>Earned 3,000,000 Cumulative Points</title>
+<description>You've earned 3,000,000 Cumulative Points!</description>
+<gamerscore>80</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>2</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368822</id>
+<title>Earned 5,000,000 Cumulative Points</title>
+<description>You've earned 5,000,000 Cumulative Points!</description>
+<gamerscore>150</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>1</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+<achievement>
+<id>1368832</id>
+<title>Earned 10,000,000 Cumulative Points</title>
+<description>You've earned 10,000,000 Cumulative Points!</description>
+<gamerscore>200</gamerscore>
+<icon_url></icon_url>
+<is_secret>false</is_secret>
+<is_unlocked>false</is_unlocked>
+<percent_complete></percent_complete>
+<unlocked_date></unlocked_date>
+<position>0</position>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</achievement>
+</achievements>
+<leaderboards>
+<leaderboard>
+<id>987406</id>
+<name>Slow Mode</name>
+<active>true</active>
+<visible>true</visible>
+<allow_posting_lower_scores>true</allow_posting_lower_scores>
+<client_application_id>397513</client_application_id>
+<descending_sort_order>true</descending_sort_order>
+<created_at>2011-11-15 23:31:18 UTC</created_at>
+<updated_at>2011-11-15 23:31:18 UTC</updated_at>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<position>0</position>
+<reached_at></reached_at>
+<display_text></display_text>
+<custom_data></custom_data>
+<score></score>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</leaderboard>
+<leaderboard>
+<id>987416</id>
+<name>Medium Mode</name>
+<active>true</active>
+<visible>true</visible>
+<allow_posting_lower_scores>true</allow_posting_lower_scores>
+<client_application_id>397513</client_application_id>
+<descending_sort_order>true</descending_sort_order>
+<created_at>2011-11-15 23:31:31 UTC</created_at>
+<updated_at>2011-11-15 23:31:31 UTC</updated_at>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<position>0</position>
+<reached_at></reached_at>
+<display_text></display_text>
+<custom_data></custom_data>
+<score></score>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</leaderboard>
+<leaderboard>
+<id>987426</id>
+<name>Fast Mode</name>
+<active>true</active>
+<visible>true</visible>
+<allow_posting_lower_scores>true</allow_posting_lower_scores>
+<client_application_id>397513</client_application_id>
+<descending_sort_order>true</descending_sort_order>
+<created_at>2011-11-15 23:31:40 UTC</created_at>
+<updated_at>2011-11-15 23:31:40 UTC</updated_at>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<position>0</position>
+<reached_at></reached_at>
+<display_text></display_text>
+<custom_data></custom_data>
+<score></score>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</leaderboard>
+<leaderboard>
+<id>990226</id>
+<name>Cumulative Points</name>
+<active>true</active>
+<visible>true</visible>
+<allow_posting_lower_scores>false</allow_posting_lower_scores>
+<client_application_id>397513</client_application_id>
+<descending_sort_order>true</descending_sort_order>
+<created_at>2011-11-17 23:35:18 UTC</created_at>
+<updated_at>2011-11-17 23:35:18 UTC</updated_at>
+<start_version>0000.00.00</start_version>
+<end_version>9999.99.99</end_version>
+<position>0</position>
+<reached_at></reached_at>
+<display_text></display_text>
+<custom_data></custom_data>
+<score></score>
+<timestamp>2011-11-17 23:36:28</timestamp>
+</leaderboard>
+</leaderboards>
+</offline>
+
+</resources>

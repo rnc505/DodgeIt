@@ -85,7 +85,7 @@
 	//
 	// return YES for the supported orientations
 	
-	return ( UIInterfaceOrientationIsLandscape( interfaceOrientation ) );
+	return ( UIInterfaceOrientationIsPortrait( interfaceOrientation ) );
 	
 #else
 #error Unknown value in GAME_AUTOROTATION
@@ -140,6 +140,8 @@
 - (void)viewDidUnload {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    gADBbannerView.delegate = nil;
+    [gADBbannerView release];
     // e.g. self.myOutlet = nil;
 }
 
@@ -147,6 +149,54 @@
 - (void)dealloc {
     [super dealloc];
 }
+
+-(void)removeAdMobBanner{
+    NSLog(@"calling removeadbanner");
+    //NSLog(@"remove google ad");
+    [gADBbannerView removeFromSuperview];
+    [gADBbannerView release];
+    //gADBbannerView=nil;
+}
+
+-(void) addAdMobBanner:(CGSize)adSize{
+    //NSLog(@"adding Admob");
+    CGSize winSize = [[CCDirector sharedDirector]winSize];
+    // Create a view of the standard size at the bottom of the screen.
+    gADBbannerView = [[GADBannerView alloc]
+                      initWithFrame:CGRectMake(winSize.width-adSize.width, winSize.height-adSize.height,
+                                               
+                                               adSize.width,
+                                               adSize.height)];
+    
+    // Specify the ad's "unit identifier." This is your AdMob Publisher ID.
+    gADBbannerView.adUnitID = @"a14ee431a717a8f";
+    
+    
+    // Let the runtime know which UIViewController to restore after taking
+    // the user wherever the ad goes and add it to the view hierarchy.
+    gADBbannerView.rootViewController = self;
+    
+    [self.view addSubview:gADBbannerView];
+    
+    [gADBbannerView loadRequest:[GADRequest request]];
+    
+}
+
+- (void)adView:(GADBannerView *)bannerView
+didFailToReceiveAdWithError:(GADRequestError *)error {
+    NSLog(@"adView:didFailToReceiveAdWithError:%@", [error localizedDescription]);
+}
+
+- (void)adViewDidReceiveAd:(GADBannerView *)bannerView {
+    [UIView beginAnimations:@"BannerSlide" context:nil];
+    bannerView.frame = CGRectMake(0.0,
+                                  self.view.frame.size.height -
+                                  bannerView.frame.size.height,
+                                  bannerView.frame.size.width,
+                                  bannerView.frame.size.height);
+    [UIView commitAnimations];
+}
+
 
 
 @end

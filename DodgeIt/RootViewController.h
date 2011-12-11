@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GADBannerView.h"
 
 
 @interface RootViewController : UIViewController {
-
+    GADBannerView *gADBbannerView;
 }
+-(void) addAdMobBanner:(CGSize)adSize;
+-(void)removeAdMobBanner;
+
+
+
 
 @end

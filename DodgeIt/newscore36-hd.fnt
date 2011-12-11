@@ -1,0 +1,26 @@
+info face="Gohan" size=72 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1
+common lineHeight=89 base=26 scaleW=512 scaleH=128 pages=1 packed=0
+page id=0 file="newscore36-hd.png"
+chars count=21
+char id=32   x=0     y=0     width=0     height=0     xoffset=0     yoffset=58    xadvance=31     page=0  chnl=0 
+char id=53   x=0     y=0     width=50     height=64     xoffset=0     yoffset=2    xadvance=53     page=0  chnl=0 
+char id=69   x=50     y=0     width=55     height=60     xoffset=-1     yoffset=7    xadvance=56     page=0  chnl=0 
+char id=52   x=105     y=0     width=50     height=60     xoffset=-1     yoffset=5    xadvance=51     page=0  chnl=0 
+char id=79   x=155     y=0     width=49     height=59     xoffset=-1     yoffset=7    xadvance=50     page=0  chnl=0 
+char id=67   x=204     y=0     width=50     height=59     xoffset=-1     yoffset=7    xadvance=52     page=0  chnl=0 
+char id=83   x=254     y=0     width=50     height=59     xoffset=0     yoffset=7    xadvance=53     page=0  chnl=0 
+char id=48   x=304     y=0     width=48     height=59     xoffset=0     yoffset=7    xadvance=52     page=0  chnl=0 
+char id=57   x=352     y=0     width=50     height=59     xoffset=0     yoffset=7    xadvance=54     page=0  chnl=0 
+char id=56   x=402     y=0     width=50     height=59     xoffset=0     yoffset=7    xadvance=53     page=0  chnl=0 
+char id=55   x=452     y=0     width=47     height=59     xoffset=-2     yoffset=6    xadvance=47     page=0  chnl=0 
+char id=54   x=0     y=64     width=50     height=59     xoffset=0     yoffset=7    xadvance=54     page=0  chnl=0 
+char id=51   x=50     y=64     width=50     height=59     xoffset=0     yoffset=7    xadvance=53     page=0  chnl=0 
+char id=82   x=100     y=64     width=55     height=58     xoffset=-1     yoffset=7    xadvance=57     page=0  chnl=0 
+char id=50   x=155     y=64     width=53     height=58     xoffset=0     yoffset=7    xadvance=57     page=0  chnl=0 
+char id=49   x=208     y=64     width=26     height=58     xoffset=1     yoffset=7    xadvance=32     page=0  chnl=0 
+char id=111   x=234     y=64     width=48     height=51     xoffset=0     yoffset=16    xadvance=52     page=0  chnl=0 
+char id=101   x=282     y=64     width=45     height=49     xoffset=0     yoffset=16    xadvance=47     page=0  chnl=0 
+char id=114   x=327     y=64     width=43     height=49     xoffset=0     yoffset=16    xadvance=45     page=0  chnl=0 
+char id=99   x=370     y=64     width=45     height=49     xoffset=0     yoffset=16    xadvance=48     page=0  chnl=0 
+char id=115   x=415     y=64     width=50     height=49     xoffset=0     yoffset=16    xadvance=54     page=0  chnl=0 
+char id=58   x=465     y=64     width=24     height=48     xoffset=0     yoffset=12    xadvance=28     page=0  chnl=0 

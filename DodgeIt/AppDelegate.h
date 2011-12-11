@@ -7,14 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OpenFeint/OpenFeintDelegate.h"
+#import "AppOFDelegate.h"
 @class RootViewController;
 
 @interface AppDelegate : NSObject <UIApplicationDelegate> {
 	UIWindow			*window;
 	RootViewController	*viewController;
+    int mode;
+    AppOFDelegate		*ofDelegate;
+    NSMutableArray      *powerups;
+    int running;
 }
 
 @property (nonatomic, retain) UIWindow *window;
+@property (readwrite, assign) int mode;
+
+@property (readwrite, assign) int running;
+@property (nonatomic, retain) NSMutableArray *powerups;
+-(void)setUpAndRetrieveData;
+-(void)displayGoogleAd:(CGSize)adSize;
+-(void)removeGoogleAd;
 
 @end
