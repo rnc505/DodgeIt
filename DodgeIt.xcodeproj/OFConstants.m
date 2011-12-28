@@ -36,14 +36,14 @@
  NSString * const LEADER_MED = @"987416";
  NSString * const LEADER_FAST = @"987426";
  NSString * const LEADER_CUM = @"990226";
- NSString * const POWER_DE_PLAYER = @"decreaseplayersize";
- NSString * const POWER_SLOW_BALL = @"slowtheball";
- NSString * const POWER_DE_BALL=@"decreaseballsize";
- NSString * const POWER_SHIELD=@"putupshield";
- NSString * const POWER_INVINCIBILITY=@"cloakofinvincibility";
- NSString * const POWER_STUN_GUN=@"stungun";
- NSString * const POWER_REVERSE_GUN=@"reversegun";
- NSString * const POWER_SHIELD_MULTI=@"putupshieldwithpointmultiplier";
- NSString * const POWER_PACMAN=@"datpackman";
+ NSString * const POWER_DE_PLAYER = @"AAApowerUPS-decreaseplayersize";
+ NSString * const POWER_SLOW_BALL = @"AAApowerUPS-slowtheball";
+ NSString * const POWER_DE_BALL=@"POWER-UPdecreaseballsize";
+ NSString * const POWER_SHIELD=@"AAApowerUPS-putupshield";
+ NSString * const POWER_INVINCIBILITY=@"AAApowerUPS-cloakofinvincibility";
+ NSString * const POWER_STUN_GUN=@"AAApowerUPS-stungun";
+ NSString * const POWER_REVERSE_GUN=@"AAApowerUPS-reversegun";
+ NSString * const POWER_SHIELD_MULTI=@"AAApowerUPS-putupshieldwithpointmultiplier";
+ NSString * const POWER_PACMAN=@"AAApowerUPS-datpackman";
 
 @end

@@ -12,7 +12,13 @@
 //#import "GADBannerView.h"
 //#import "RootViewController.h"
 // HelloWorldLayer
-@interface TitleScreen : CCLayer
+@protocol ModalViewDelegate
+
+- (void)didReceiveMessage:(NSString *)message;
+
+@end
+#import "NSUserDefaults+MPSecureUserDefaults.h"
+@interface TitleScreen : CCLayer <ModalViewDelegate>
 {
   //  GADBannerView *bannerView_;
   //  RootViewController *vCont;
@@ -31,4 +37,22 @@
 -(float)getXMovement;
 -(float)getYMovement:(float)dx;
 -(void)runTests;
+-(void)seedRandomTransition;
+@property (nonatomic, retain) IBOutlet CCSprite *background;
+@property (nonatomic, retain) IBOutlet CCSprite *DodgeText;
+@property (nonatomic, retain) IBOutlet CCSprite *ItText;
+@property (nonatomic, retain) IBOutlet CCSprite *FastMode;
+@property (nonatomic, retain) IBOutlet CCSprite *SlowMode;
+@property (nonatomic, retain) IBOutlet CCSprite *MediumMode;
+@property (nonatomic, retain) IBOutlet CCSprite *Settings;
+@property (nonatomic, retain) IBOutlet CCSprite *highScores;
+@property (nonatomic, retain) IBOutlet CCSprite *player1;
+@property (nonatomic, assign) IBOutlet float _bgRed;
+@property (nonatomic, assign) IBOutlet float _bgGreen;
+@property (nonatomic, assign) IBOutlet float _bgBlue;
+@property (nonatomic, retain) IBOutlet CCMenu *gameModes;
+@property (nonatomic, copy) IBOutlet NSArray *ballsA;
+@property (nonatomic, retain) IBOutlet NSMutableArray *ballsMotionA;
+@property (nonatomic, retain) IBOutlet UIButton *infoButton;
+@property (nonatomic, retain) IBOutlet UIButton *feedbackButton;
 @end

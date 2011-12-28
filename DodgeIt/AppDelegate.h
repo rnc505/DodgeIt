@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "OpenFeint/OpenFeintDelegate.h"
 #import "AppOFDelegate.h"
+#import "NSUserDefaults+MPSecureUserDefaults.h"
 @class RootViewController;
 
 @interface AppDelegate : NSObject <UIApplicationDelegate> {
@@ -18,9 +19,10 @@
     AppOFDelegate		*ofDelegate;
     NSMutableArray      *powerups;
     int running;
+   
 }
 
-@property (nonatomic, retain) UIWindow *window;
+@property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (readwrite, assign) int mode;
 
 @property (readwrite, assign) int running;
@@ -28,5 +30,6 @@
 -(void)setUpAndRetrieveData;
 -(void)displayGoogleAd:(CGSize)adSize;
 -(void)removeGoogleAd;
+-(void)showInfoPane;
 
 @end

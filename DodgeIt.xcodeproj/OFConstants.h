@@ -10,7 +10,6 @@
 
 
 @interface OFConstants : NSObject {
-   
 }
 extern NSString * const SLOW_30K;
 extern NSString * const SLOW_60K;

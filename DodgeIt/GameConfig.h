@@ -41,5 +41,6 @@
 #error(unknown architecture)
 #endif
 
+
 #endif // __GAME_CONFIG_H
 

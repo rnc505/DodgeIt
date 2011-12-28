@@ -7,7 +7,8 @@
 //
 
 #import "cocos2d.h"
-
+#import "TestFlight.h"
+#import "SimpleAudioEngine.h"
 #import "AppDelegate.h"
 #import "GameConfig.h"
 #import "HelloWorldLayer.h"
@@ -17,6 +18,8 @@
 #import "AppOFDelegate.h"
 #import "OFConstants.h"
 #define save [NSUserDefaults standardUserDefaults]
+#define pupnames [NSArray arrayWithObjects:POWER_DE_BALL,POWER_DE_PLAYER,POWER_INVINCIBILITY,POWER_REVERSE_GUN,POWER_SHIELD,POWER_SHIELD_MULTI,POWER_SLOW_BALL,POWER_STUN_GUN, nil]
+#define validno valid = NO;
 @implementation AppDelegate
 
 @synthesize window;
@@ -44,6 +47,8 @@
 }
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
+    [NSUserDefaults setSecret:@"1fd94c848adee8763c2ee5464802590c7ac456dd521765926916d3bcf6a6c73135f5eceeb1498c04aa984bed0e244e661368f8641534558f4d842e2d15df0c52"];//SHA-512 Hash of my full name
+	[NSUserDefaults setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
 	// Init the window
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	mode = 0;
@@ -139,52 +144,74 @@
 						   andDelegates:delegates];
     
     [self setUpAndRetrieveData];
+    //[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"gamemusic.mp3"];
     
+    //[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"mainmenu.caf"];
+    [TestFlight takeOff:@"07e5f872adf04a6a0c109b1cf2144e4e_NTAxNTYyMDExLTEyLTI4IDA5OjI5OjQ3Ljg0MTAyMw"];
     
 }
 
 -(void)setUpAndRetrieveData
 {
     powerups = [[NSMutableArray alloc] init];
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"dateKey"] == nil) {
+    BOOL valid = NO;
+   // if ([[NSUserDefaults standardUserDefaults] objectForKey:@"dateKey"] == nil) {
+    if([save secureBoolForKey:@"First Run?" valid:&valid]){
+        validno;
         NSDictionary *appDefaults  = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dateKey", nil];
-        [save setBool:NO forKey:POWER_DE_BALL];
-        [save setBool:NO forKey:POWER_DE_PLAYER];
-        [save setBool:NO forKey:POWER_SLOW_BALL];
-        [save setBool:NO forKey:POWER_SHIELD];
-        [save setBool:NO forKey:POWER_INVINCIBILITY];
-        [save setBool:NO forKey:POWER_STUN_GUN];
-        [save setBool:NO forKey:POWER_REVERSE_GUN];
-        [save setBool:NO forKey:POWER_PACMAN];
-        [save setBool:NO forKey:POWER_SHIELD_MULTI];
         
-        [save setInteger:0 forKey:@"SlowHighScore"];
-        [save setInteger:0 forKey:@"MediumHighScore"];
-        [save setInteger:0 forKey:@"FastHighScore"];
-        [save setInteger:0 forKey:@"CumulativeScore"];
+        [save setSecureBool:NO forKey:@"First Run?"];
+        [save setSecureBool:NO forKey:POWER_DE_BALL];
+        [save setSecureBool:NO forKey:POWER_DE_PLAYER];
+        [save setSecureBool:NO forKey:POWER_SLOW_BALL];
+        [save setSecureBool:NO forKey:POWER_SHIELD];
+        [save setSecureBool:NO forKey:POWER_INVINCIBILITY];
+        [save setSecureBool:NO forKey:POWER_STUN_GUN];
+        [save setSecureBool:NO forKey:POWER_REVERSE_GUN];
+        [save setSecureBool:NO forKey:POWER_PACMAN];
+        [save setSecureBool:NO forKey:POWER_SHIELD_MULTI];
+        
+        [save setSecureInteger:0 forKey:@"SlowHighScore"];
+        [save setSecureInteger:0 forKey:@"MediumHighScore"];
+        [save setSecureInteger:0 forKey:@"FastHighScore"];
+        [save setSecureInteger:0 forKey:@"CumulativeScore"];
         
         [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
         [[NSUserDefaults standardUserDefaults] synchronize];
         NSLog(@"firstrun");
     }
-    if([save boolForKey:POWER_DE_BALL])
+    validno;
+    /*if([save secureBoolForKey:POWER_DE_BALL])
         [powerups addObject:POWER_DE_BALL];
-    if([save boolForKey:POWER_SLOW_BALL])
+    if([save secureBoolForKey:POWER_SLOW_BALL])
         [powerups addObject:POWER_SLOW_BALL];
-    if([save boolForKey:POWER_DE_PLAYER])
+    if([save secureBoolForKey:POWER_DE_PLAYER])
         [powerups addObject:POWER_DE_PLAYER];
-    if([save boolForKey:POWER_SHIELD])
+    if([save secureBoolForKey:POWER_SHIELD])
         [powerups addObject:POWER_SHIELD];
-    if([save boolForKey:POWER_INVINCIBILITY])
+    if([save secureBoolForKey:POWER_INVINCIBILITY])
         [powerups addObject:POWER_INVINCIBILITY];
-    if([save boolForKey:POWER_STUN_GUN])
+    if([save secureBoolForKey:POWER_STUN_GUN])
         [powerups addObject:POWER_STUN_GUN];
-    if([save boolForKey:POWER_REVERSE_GUN])
+    if([save secureBoolForKey:POWER_REVERSE_GUN])
         [powerups addObject:POWER_REVERSE_GUN];
-    /*if([save boolForKey:POWER_PACMAN])
-     [powerups addObject:POWER_PACMAN];*/
-    if(![save boolForKey:POWER_SHIELD_MULTI])
-        [powerups addObject:POWER_SHIELD_MULTI];
+    if([save secureBoolForKey:POWER_PACMAN])
+     [powerups addObject:POWER_PACMAN];
+    if([save secureBoolForKey:POWER_SHIELD_MULTI])
+        [powerups addObject:POWER_SHIELD_MULTI];*/
+    for(int j = 0;j<[pupnames count];j++){
+        // (NSString*)[POWERUP_NAMES objectAtIndex:j]
+        validno;
+        BOOL activated = [save secureBoolForKey:(NSString*)[pupnames objectAtIndex:j] valid:&valid];
+        if(!valid){
+            NSLog(@"The Powerup: %@ has been Modified",(NSString*)[pupnames objectAtIndex:j]);
+        } else {
+            if(activated)
+                [powerups addObject:(NSString*)[pupnames objectAtIndex:j]];
+        }
+        
+    }
+    
     
     for(int i =0;i<powerups.count;i++){
         NSLog(@"POWERUP ENABLED: %@",[powerups objectAtIndex:i]);
@@ -196,10 +223,12 @@
     // if([[[CCDirector sharedDirector] runningScene] isEqual:[HelloWorldLayer class]]){
         
 	[[CCDirector sharedDirector] pause];
+    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 	[[CCDirector sharedDirector] resume];
+    [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
     if(running == 100){ 
         //[(HelloWorldLayer *)[[CCDirector sharedDirector] ] pauseGame];
         // [HelloWorldLayer backgroundPause];
@@ -223,10 +252,12 @@
         // [HelloWorldLayer outPutData];
         NSLog(@"suppsoed t o have cfllased this");
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Interruption" object:nil];
     NSLog(@"resigning");
     NSLog(@"%@",[[[CCDirector sharedDirector] runningScene] description]);
 
 	[[CCDirector sharedDirector] stopAnimation];
+    
     NSLog(@"entering bckground");
 }
 
@@ -240,6 +271,7 @@
     [OpenFeint shutdown];
     NSLog(@"terminating this bih");
 	CCDirector *director = [CCDirector sharedDirector];
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 	
 	[[director openGLView] removeFromSuperview];
 	
@@ -258,15 +290,22 @@
 	[[CCDirector sharedDirector] end];
 	[window release];
     [powerups release];
+    //[deviceIdentifier release];
 	[super dealloc];
 }
 
 -(void)displayGoogleAd:(CGSize)adSize{
     [viewController addAdMobBanner:adSize];
 }
+
+
+
 -(void)removeGoogleAd{
     [viewController removeAdMobBanner];
 }
+-(void)showInfoPane{
+    [viewController showInfoPane];
+}
 
-@synthesize mode,powerups,running;
+@synthesize mode,powerups,running;//,deviceIdentifier;
 @end

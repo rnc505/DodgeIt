@@ -5,8 +5,9 @@
 //  Created by Android on 11/12/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
-
+#import "TestFlight.h"
 #import "TitleScreen.h"
+#import "SimpleAudioEngine.h"
 #import "AppDelegate.h"
 #import "HelloWorldLayer.h"
 #import "OpenFeint/OpenFeint.h"
@@ -14,28 +15,32 @@
 #define UIAppDelegate \
 ((AppDelegate *)[UIApplication sharedApplication].delegate)
 #define save [NSUserDefaults standardUserDefaults]
+#define validno valid = NO;
 @implementation TitleScreen
+@synthesize feedbackButton;
 
-CCSprite *background;
-CCSprite *DodgeText;
-CCSprite *ItText;
-CCSprite *FastMode;
-CCSprite *SlowMode;
-CCSprite *MediumMode;
-CCSprite *Settings;
-CCSprite *highScores;
-CCSprite *player1;
-float _bgRed;
-float _bgGreen;
-float _bgBlue;
+@synthesize infoButton;
+@synthesize background;
+@synthesize DodgeText;
+@synthesize ItText;
+@synthesize FastMode;
+@synthesize SlowMode;
+@synthesize MediumMode;
+@synthesize Settings;
+@synthesize highScores;
+@synthesize player1;
+@synthesize _bgRed;
+@synthesize _bgGreen;
+@synthesize _bgBlue;
+@synthesize gameModes;
+@synthesize ballsA;
+@synthesize ballsMotionA;
+
 bool _bgRedFull;
 bool _bgGreenFull;
 bool _bgBlueFull;
 int colorDt = 10;
 int whichBackgroundColor=0;
-CCMenu *gameModes;
-NSArray *ballsA;
-NSMutableArray *ballsMotionA;
 
 +(CCScene *) scene
 {
@@ -65,23 +70,48 @@ NSMutableArray *ballsMotionA;
     bool touchingHI = CGRectContainsPoint(CGRectMake(highScores.position.x-highScores.contentSize.width/2, highScores.position.y-highScores.contentSize.height/2, highScores.contentSize.width, highScores.contentSize.height), location);
     
     if(touchingFast){
+        [[SimpleAudioEngine sharedEngine] playEffect:@"optionclicked.wav"];
+        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        NSLog(@"PREinfobutton: %i",[infoButton retainCount]);
+       // [infoButton retain];
+        [infoButton removeFromSuperview];
+        [feedbackButton removeFromSuperview];
+        NSLog(@"POSTinfobutton: %i",[infoButton retainCount]);
         UIAppDelegate.mode = 1;
         [(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];
-        [[CCDirector sharedDirector] replaceScene:
-         [CCTransitionPageTurn transitionWithDuration:.8  scene:[HelloWorldLayer scene:(NSInteger*)1] backwards:NO]];         
+      // [[CCDirector sharedDirector] replaceScene:
+       //  [CCTransitionPageTurn transitionWithDuration:.8  scene:[HelloWorldLayer scene] backwards:NO]];    
+        [self seedRandomTransition];
+       
     }
     if(touchingMedium){
+        [[SimpleAudioEngine sharedEngine] playEffect:@"optionclicked.wav"];
+        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        NSLog(@"PREinfobutton: %i",[infoButton retainCount]);
+       // [infoButton retain];
+        [infoButton removeFromSuperview];
+        [feedbackButton removeFromSuperview];
+         NSLog(@"POSTinfobutton: %i",[infoButton retainCount]);
         UIAppDelegate.mode = 2;
         [(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];
-        [[CCDirector sharedDirector] replaceScene:
-         [CCTransitionRotoZoom transitionWithDuration:.8  scene:[HelloWorldLayer scene:(NSInteger*)2] ]];         
+        //[[CCDirector sharedDirector] replaceScene:
+         //[CCTransitionRotoZoom transitionWithDuration:.8  scene:[HelloWorldLayer scene] ]];         
+        [self seedRandomTransition];
     }
     
     if(touchingSlow){
+        [[SimpleAudioEngine sharedEngine] playEffect:@"optionclicked.wav"];
+        [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+        NSLog(@"PREinfobutton: %i",[infoButton retainCount]);
+        //[infoButton retain];
+        [infoButton removeFromSuperview];
+        [feedbackButton removeFromSuperview];
+         NSLog(@"POSTinfobutton: %i",[infoButton retainCount]);
         UIAppDelegate.mode = 3;
         [(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];
-        [[CCDirector sharedDirector] replaceScene:
-         [CCTransitionShrinkGrow transitionWithDuration:.8  scene:[HelloWorldLayer scene:(NSInteger*)3] ]];         
+       // [[CCDirector sharedDirector] replaceScene:
+         //[CCTransitionShrinkGrow transitionWithDuration:.8  scene:[HelloWorldLayer scene] ]];   
+        [self seedRandomTransition];
     }
     if(touchingHI){
                 NSLog(@"touch hi");
@@ -89,14 +119,76 @@ NSMutableArray *ballsMotionA;
     }
 }
 
-
+-(void)seedRandomTransition
+{
+    int random1 = arc4random()%13;
+    
+    switch (random1) {
+        case 0:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 1:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 2:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionShrinkGrow transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 3:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionMoveInB transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 4:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionMoveInT transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+        case 5:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionMoveInL transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 6:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionMoveInR transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 7:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionFadeTR transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 8:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionRotoZoom transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 9:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 10:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionTurnOffTiles  transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 11:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionZoomFlipAngular transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+        case 12:
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionPageTurn transitionWithDuration:.8 scene:[HelloWorldLayer scene]]];
+            break;
+            
+            
+        default:
+            break;
+    }
+}
 
 -(id) init
 {
     // always call "super" init
     // Apple recommends to re-assign "self" with the "super" return value
     if( (self=[super init])) {
-       
+        
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"mainmenu.caf" loop:YES];
+               
         ballsMotionA = [[NSMutableArray alloc] init];
         background = [CCSprite spriteWithFile:@"backgroundtitle.png"];
         background.position = ccp(160, 240);
@@ -174,6 +266,25 @@ NSMutableArray *ballsMotionA;
         highScores.position = ccp(193.75,74.5);
        [self addChild:highScores];
         
+        
+         NSLog(@"pre-First Add.  Retain Count: %i", [infoButton retainCount]);
+        infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+        NSLog(@"infobutton init: %i",[infoButton retainCount]);
+        infoButton.tag = 1333;
+        [[[CCDirector sharedDirector] openGLView] addSubview:infoButton];
+        infoButton.center = ccp(24.5, 480-74.5);        
+        [infoButton addTarget:self action:@selector(showInfoPane) forControlEvents:UIControlEventTouchUpInside];
+        NSLog(@"First Add.  Retain Count: %i", [infoButton retainCount]);
+         
+        //BETA TEST
+        feedbackButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        feedbackButton.tag = 2666;
+        [[[CCDirector sharedDirector] openGLView] addSubview:feedbackButton];
+        feedbackButton.center = ccp(68-11, 480-74.5);
+        [feedbackButton addTarget:self action:@selector(showFeedback) forControlEvents:UIControlEventTouchUpInside];
+        //END BETA TEST
+        
+        
         /*Settings = [CCSprite spriteWithFile:@"SETTINGS.png"];
         Settings.position = ccp(191.75,31.5);
         [self addChild:Settings];*/
@@ -194,10 +305,14 @@ NSMutableArray *ballsMotionA;
        
                 
         NSLog(@"save information:");
-        NSLog(@"current slow high score: %i",[save integerForKey:@"SlowHighScore"]);
-         NSLog(@"current med high score: %i",[save integerForKey:@"MediumHighScore"]);   
-         NSLog(@"current fast high score: %i",[save integerForKey:@"FastHighScore"]);
-         NSLog(@"current cum score: %i",[save integerForKey:@"CumulativeScore"]);
+        BOOL valid = NO;
+        NSLog(@"current slow high score: %i",(int)[save secureIntegerForKey:@"SlowHighScore" valid:&valid]);
+        validno;
+         NSLog(@"current med high score: %i",(int)[save secureIntegerForKey:@"MediumHighScore" valid:&valid]);  
+        validno;
+         NSLog(@"current fast high score: %i",(int)[save secureIntegerForKey:@"FastHighScore" valid:&valid]);
+        validno;
+        NSLog(@"current cum score: %i",(int)[save secureIntegerForKey:@"CumulativeScore" valid:&valid]);
         
         for(int i = 0; i< UIAppDelegate.powerups.count;i++){
             NSLog(@"POWER: %@",(NSString*)[UIAppDelegate.powerups objectAtIndex:i]);
@@ -206,9 +321,89 @@ NSMutableArray *ballsMotionA;
         
         [(AppDelegate*)[[UIApplication sharedApplication] delegate] displayGoogleAd:CGSizeMake(320, 50)];
         //UIAppDelegate.
+        
+        /*[[NSNotificationCenter defaultCenter] addObserverForName:@"goHomeNow"  object:nil queue:nil usingBlock:^(NSNotification *notif) {
+            // Notification-handling code goes here. 
+            NSLog(@"HANDLED");
+             [[CCDirector sharedDirector] resume];
+           // [self didReceiveMessage:@"hulo"];
+        }];*/
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goHomeNow1) name:@"goHomeNow" object:nil];
     }
     
     return self;
+}
+
+-(void)showFeedback
+{
+    [TestFlight openFeedbackView];
+}
+
+-(void)goHomeNow1
+{
+     NSLog(@"HANDLED");
+    [self didReceiveMessage:@"hulo"];
+}
+
+- (void)didReceiveMessage:(NSString *)message {
+	NSLog(@"SUCCESS");
+    NSLog(@"Pre-reAddSubview.  didRecieveMessage.  Retain Count: %i",[infoButton retainCount]);
+    /*infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    infoButton.tag = 1333;
+    [infoButton removeFromSuperview];
+    infoButton.center = ccp(24.5, 480-74.5);        
+    [infoButton addTarget:self action:@selector(showInfoPane) forControlEvents:UIControlEventTouchUpInside];
+   // [(TitleScreen*)[[CCDirector sharedDirector] runningScene] backFromInfo];
+    //[[[[CCDirector sharedDirector] openGLView] window] bringSubviewToFront:infoButton];*/
+       // [[CCDirector sharedDirector] resume];
+   /* [[CCDirector sharedDirector] runWithScene:[TitleScreen scene]];
+    return;*/
+    
+    
+    
+    //[[[CCDirector sharedDirector] openGLView]  addSubview:infoButton];
+    //[infoButton retain];
+    //[infoButton removeFromSuperview];
+    //[[CCDirector sharedDirector] popScene];
+    /* [UIAppDelegate.window addSubview:[[CCDirector sharedDirector] openGLView]];
+    [[CCDirector sharedDirector] replaceScene:[TitleScreen scene]];*/
+   // [(AppDelegate*)[[UIApplication sharedApplication] delegate] switchViewControllers];
+    NSLog(@"Post-reAddSubview.  didRecieveMessage.  Retain Count: %i",[infoButton retainCount]);
+    //[(AppDelegate*)[[UIApplication sharedApplication] delegate] displayGoogleAd:CGSizeMake(320, 50)];
+    /*CCLayerColor *help = [[CCLayerColor alloc] initWithColor:ccc4(0, 0, 0, 0)];
+    help.position = ccp(0,0);
+    help.contentSize = CGSizeMake(1, 1);
+    help.tag = 865;
+    [self addChild:help];
+    help = nil;*/
+   // [self performSelector:@selector(popDatScene) withObject:nil afterDelay:.2];
+    
+}
+
+
+
+-(void)showInfoPane
+{
+   // [[NSNotificationCenter defaultCenter] postNotificationName:@"OFNSNotificationDashboardWillAppear" object:nil];
+    
+ //   return;
+    [TestFlight passCheckpoint:@"Opened Info Frame"];
+    
+    [[CCDirector sharedDirector] stopAnimation];
+     [[CCDirector sharedDirector] pause];
+    NSLog(@"WIN");
+    //[[[[CCDirector sharedDirector] openGLView] window] :infoButton];
+    NSLog(@"Pre-RemoveFromSuperView.  Retain Count: %i",[infoButton retainCount]);
+    //[infoButton retain];
+   // [infoButton removeFromSuperview];
+      NSLog(@"Post-RemoveFromSuperView.  Retain Count: %i",[infoButton retainCount]);
+    //UIAppDelegate.mode = 1;
+    
+   // [(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];
+    /*[[CCDirector sharedDirector] replaceScene:
+     [CCTransitionFlipX transitionWithDuration:.8  scene:[Infopane scene]]]; */
+   // [[CCDirector sharedDirector] popScene];
+    [(AppDelegate*)[[UIApplication sharedApplication] delegate] showInfoPane];
 }
 
 -(void)runTests
@@ -234,6 +429,7 @@ NSMutableArray *ballsMotionA;
 
 -(void)runTitleAndBalls:(ccTime)dt
 {
+   
     player1.rotation = player1.rotation + 180*dt;
    // NSLog(@"ballsA count: %i",ballsA.count);
     for(int i = 0;i<ballsA.count;i++){
@@ -245,7 +441,7 @@ NSMutableArray *ballsMotionA;
        // NSLog(@"move:(%f,%f)",move.x,move.y);
         bool _lessX = ballA.position.x < 0 +[ballA contentSize].width/3;
         bool _greaterX = ballA.position.x > 320-[ballA contentSize].width/3;
-        bool _lessY = ballA.position.y < 0 +[ballA contentSize].height/3;
+        bool _lessY = ballA.position.y < 50 + [ballA contentSize].height/3;//0 +[ballA contentSize].height/3;
         bool _greaterY = ballA.position.y > 480 -[ballA contentSize].height/3;
         if(_lessX)
             move.x = fabsf(move.x);
@@ -519,5 +715,35 @@ NSMutableArray *ballsMotionA;
     // NSLog(@"ColorBG ended");
     //NSLog(@"%@",background.color);
 }
+
+- (void) dealloc
+{
+	// in case you have something to dealloc, do it in this method
+	// in this particular example nothing needs to be released.
+	// cocos2d will automatically release all the children (Label)
+	
+	// don't forget to call "super dealloc"
+    //[self removeAllChildrenWithCleanup:YES];
+	
+
+	//self.background = nil;
+	/*self.DodgeText = nil;
+	self.ItText = nil;
+	self.FastMode = nil;
+	self.SlowMode = nil;
+	self.MediumMode = nil;
+	self.Settings = nil;
+	self.highScores = nil;
+	//self.player1 = nil;
+	self.gameModes = nil;*/
+	self.ballsA = nil;
+	self.ballsMotionA = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    //[infoButton release];
+	//self.infoButton = nil;
+	//self.feedbackButton = nil;
+    	[super dealloc];
+}
+
 
 @end

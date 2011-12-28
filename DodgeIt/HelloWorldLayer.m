@@ -9,29 +9,55 @@
 
 // Import the interfaces
 #import "HelloWorldLayer.h"
+#import "SimpleAudioEngine.h"
 #import "CCTouchDispatcher.h"// HelloWorldLayer implementation
 #import "AppDelegate.h"
 #import "OpenFeint/OpenFeintDelegate.h"
 #import "TitleScreen.h"
 #import "OpenFeint/OpenFeint.h"
-#import "OpenFeint/OFAchievementService.h"
-#import "OpenFeint/OFAchievement.h"
 #import "OFConstants.h"
-#import "OpenFeint/OFLeaderboardService.h"
-#import "OpenFeint/OFLeaderboard.h"
-#import "OpenFeint/OFHighScoreService.h"
-#import "OpenFeint/OFHighScore.h"
-#include "stdlib.h"
+#import <AudioToolbox/AudioToolbox.h>
 #define UIAppDelegate \
 ((AppDelegate *)[UIApplication sharedApplication].delegate)
 #define save [NSUserDefaults standardUserDefaults]
+#define validno valid = NO;
+#define pupnames [NSArray arrayWithObjects:POWER_DE_BALL,POWER_DE_PLAYER,POWER_INVINCIBILITY,POWER_REVERSE_GUN,POWER_SHIELD,POWER_SHIELD_MULTI,POWER_SLOW_BALL,POWER_STUN_GUN, nil]
 
 @implementation HelloWorldLayer
+@synthesize board;
+@synthesize score;
+@synthesize balls;
+@synthesize ballsMotion;
+@synthesize fileNames;
+@synthesize player;
+@synthesize pauseBtn;
+@synthesize background;
+@synthesize scoreLabel;
+@synthesize powerupLabel;
+@synthesize daScore;
+@synthesize pauseLayer;
+@synthesize pauseMenu;
+@synthesize dxColor;
+@synthesize dyColor;
+@synthesize redPlayer;
+@synthesize greenPlayer;
+@synthesize bluePlayer;
+@synthesize bgRed;
+@synthesize bgGreen;
+@synthesize bgBlue;
+@synthesize randomPWR;
+@synthesize whichPowerUp;
+@synthesize poweruplayer;
+@synthesize countdown;
+@synthesize usage;
+@synthesize ball;
+@synthesize shield;
+@synthesize shieldmult;
 
 int colorInc = 5;
+  int dotProduct;
 
-
-+(CCScene *) scene:(NSInteger *)mode
++(CCScene *) scene
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
@@ -44,8 +70,8 @@ int colorInc = 5;
 	[scene addChild: layer];
 	//srand(time(NULL));
 	// return the scene
-    CCLOG(@"mode: %i",(int)mode);
-    switch ((int)mode) {
+  //  CCLOG(@"mode: %i",(int)mode);
+    /*switch ((int)mode) {
         case 1:
             dotProduct = 150;
             break;
@@ -55,7 +81,7 @@ int colorInc = 5;
         case 3:
             dotProduct = 75;
             break;
-    }
+    }*/
 	return scene;
 }
 
@@ -82,35 +108,11 @@ int colorInc = 5;
  return YES;
  }*/
 
-+(void)backgroundPause
-{
-  //  backgroundPaused = YES;
-    NSLog(@"bakcgroundpaused");
-    CCArray *test = [self scene:0].children;
-    for(CCNode *node in test){
-        if(node.tag == 123456){
-            [(HelloWorldLayer*)node pauseGame];
-        }
-    }
-}
-
-+(void)outPutData{
-    CCArray *test = [self scene:0].children;
-    for(CCNode *node in test){
-        if(node.tag == 123456){
-           // NSLog(@"touched?:%@",((HelloWorldLayer*)node).isTouchEnabled);
-            [(HelloWorldLayer*)node pauseGame];
-         //   NSLog(@"touched?:%@",((HelloWorldLayer*)node).isTouchEnabled);
-           //NSLog(@"pause state: %@",((HelloWorldLayer*)node).isGamePaused);
-        }
-    }
-
-    
-   
-}
 
 -(void)pauseGame
 {
+    //if(!started)
+      //  return;
     NSLog(@"GAME IS PAUSING RIGHT NOW!");
     // [[CCDirector sharedDirector] pause];
     [self pauseSchedulerAndActions];
@@ -124,13 +126,11 @@ int colorInc = 5;
     [self addChild:pauseLayer];
     // CCMenuItem *resume = [CCMenuItemImage itemFromNormalImage:@"resume-game.png" selectedImage:@"resume-game-pressed.png" target:self selector:@selector(resumeGame:)];
     //  CCMenuItem *mainMenu = [CCMenuItemImage itemFromNormalImage:@"main-menu2.png" selectedImage:@"main-menu2-pressed.png" target:self selector:@selector(mainMenu:)];
-    CCMenuItem *play = [CCMenuItemLabel itemWithLabel:[CCLabelTTF labelWithString:@"play"  fontName:@"Arial" fontSize:24] target:self selector:@selector(resumeGame:)];
-    CCMenuItem *home = [CCMenuItemLabel itemWithLabel:[CCLabelTTF labelWithString:@"home" fontName:@"Arial" fontSize:24] target:self selector:@selector(goHome:)];
     [pauseLayer runAction:[CCScaleTo actionWithDuration:.5 scaleX:3.2 scaleY:4.8]];
     [pauseLayer runAction:[CCFadeTo actionWithDuration:.5 opacity:130]];
-    pauseMenu = [CCMenu menuWithItems:play, home, nil];
-    [pauseMenu alignItemsHorizontally];
-    [pauseMenu setPosition:ccp(pauseLayer.position.x, pauseLayer.position.y)];
+    pauseMenu = [CCMenu menuWithItems:[CCMenuItemLabel itemWithLabel:[CCLabelTTF labelWithString:@"Resume Game"  fontName:@"Arial" fontSize:24] target:self selector:@selector(resumeGame:)], [CCMenuItemLabel itemWithLabel:[CCLabelTTF labelWithString:@"Return to Menu" fontName:@"Arial" fontSize:24] target:self selector:@selector(goHome:)], nil];
+    [pauseMenu alignItemsVerticallyWithPadding:25];
+    [pauseMenu setPosition:ccp(pauseLayer.position.x, pauseLayer.position.y-30)];
     [self addChild:pauseMenu z:10];
     // ccColor4B c ={0,0,0,10};
 	//[PauseLayer layerWithColor:c delegate:self];
@@ -141,6 +141,7 @@ int colorInc = 5;
 
 -(void)goHome:(id)sender
 {
+    [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
     [[CCDirector sharedDirector] replaceScene:
 	 [CCTransitionFadeTR transitionWithDuration:0.5f scene:[TitleScreen scene]]];
     
@@ -168,11 +169,10 @@ int colorInc = 5;
 }
 -(void)ccTouchesBegan:(NSSet *)touch withEvent:(UIEvent *)event {
     NSLog(@"is started? %@",started ? @"YES" :@"NO");
-    NSArray *touchArray = [touch allObjects];
-    CGPoint location = [self convertTouchToNodeSpace: [touchArray objectAtIndex:0]];
+    CGPoint location = [self convertTouchToNodeSpace: [[touch allObjects] objectAtIndex:0]];
     CGPoint location2;
     if(!isGamePaused){
-        switch ([touchArray count]) {
+        switch ([[touch allObjects] count]) {
             case 1:
                 if(!started){ 
                     [self schedule:@selector(nextFrame:)];
@@ -241,7 +241,7 @@ int colorInc = 5;
                 break;
                 
             default:
-                location2 = [self convertTouchToNodeSpace: [touchArray objectAtIndex:1]];
+                location2 = [self convertTouchToNodeSpace: [[touch allObjects] objectAtIndex:1]];
                 if(whichPowerUp == 600 || whichPowerUp == 700){
                     
                     for(int i=0; i<balls.count;i++){
@@ -291,7 +291,7 @@ int colorInc = 5;
         }
     }
     //return YES;
-    //[touchArray release];
+   //[touchArray release];
 }
 
 -(void)putBackMovement:(NSNumber *)index
@@ -312,8 +312,8 @@ int colorInc = 5;
     switch ([touch count]) {
         case 1:
             if(fingerDown){
-                NSArray *touchArray = [touch allObjects];
-                CGPoint location = [self convertTouchToNodeSpace: [touchArray objectAtIndex:0 ]];
+                //NSArray *touchArray = [touch allObjects];
+                CGPoint location = [self convertTouchToNodeSpace: [[touch allObjects] objectAtIndex:0 ]];
                 player.position = location;
                 //[touchArray release];
             }
@@ -338,6 +338,8 @@ int colorInc = 5;
 // on "init" you need to initialize your instance
 -(id) init
 {
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"gamemusic.mp3" loop:YES];
+    congrats =NO;
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super" return value
     UIAppDelegate.running = 100;
@@ -386,15 +388,15 @@ int colorInc = 5;
         [self addChild:player];
         
         int value = arc4random()%4;//rand()%4;
-        CCSprite *ball = [CCSprite spriteWithFile:[fileNames objectAtIndex:value]];
+        ball = [CCSprite spriteWithFile:[fileNames objectAtIndex:value]];
         [fileNames removeObjectAtIndex:value];
         ball.tag = 0;
         ball.position = ccp([ball contentSize].width, 480-[ball contentSize].height);
         float xMovement = [self getXMovement];//arc4random()%100;
         float yMovement = [self getYMovement:xMovement];//sqrtf(20000 - (xMovement*xMovement));
         NSLog(@"x: %f & y: %f",xMovement,yMovement);
-        NSValue *move = [NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)];
-        [ballsMotion addObject:move];
+        //NSValue *move = ;
+        [ballsMotion addObject:[NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)]];
         [balls addObject:ball];
         [self addChild:ball];
         
@@ -406,8 +408,8 @@ int colorInc = 5;
         xMovement = [self getXMovement];//arc4random()%100;
         yMovement = [self getYMovement:xMovement];//sqrtf(20000 - (xMovement*xMovement));
         NSLog(@"x: %f & y: %f",xMovement,yMovement);
-        move = [NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)];
-        [ballsMotion addObject:move];
+        //move = [NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)];
+        [ballsMotion addObject:[NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)]];
         [balls addObject:ball];
         [self addChild:ball];
         
@@ -419,8 +421,8 @@ int colorInc = 5;
         xMovement = [self getXMovement];//arc4random()%100;
         yMovement = [self getYMovement:xMovement];//sqrtf(20000 - (xMovement*xMovement));  
         NSLog(@"x: %f & y: %f",xMovement,yMovement);
-        move = [NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)];
-        [ballsMotion addObject:move];
+      //  move = [NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)];
+        [ballsMotion addObject:[NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)]];
         [balls addObject:ball];
         [self addChild:ball];
         
@@ -431,8 +433,8 @@ int colorInc = 5;
         xMovement = [self getXMovement];//arc4random()%100;
         yMovement = [self getYMovement:xMovement];//sqrtf(20000 - (xMovement*xMovement));
         NSLog(@"x: %f & y: %f",xMovement,yMovement);
-        move = [NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)];
-        [ballsMotion addObject:move];
+       // move = [NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)];
+        [ballsMotion addObject:[NSValue valueWithCGPoint:CGPointMake(xMovement, yMovement)]];
         [balls addObject:ball];
         [self addChild:ball];
         NSLog(@"bgColor schedule --- Start");
@@ -484,7 +486,7 @@ int colorInc = 5;
         randomPWR=100;
         countdown = 5.0f;
         usage = 1;
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseGame) name:@"Interruption" object:nil];
         
     }
 	return self;
@@ -492,8 +494,9 @@ int colorInc = 5;
 
 -(void)activatePowerup
 {
+    [[SimpleAudioEngine sharedEngine] playEffect:@"powerup.caf"];
     NSLog(@"starting");
-    NSString *name; //= [[NSString alloc] initWithString:[UIAppDelegate.powerups objectAtIndex:randomPWR]];
+    NSMutableString *name = [[NSMutableString alloc] init];; //= [[NSString alloc] initWithString:[UIAppDelegate.powerups objectAtIndex:randomPWR]];
     NSLog(@"checking");
     NSString*check = [[NSString alloc] initWithString:[UIAppDelegate.powerups objectAtIndex:randomPWR]];
     NSLog(@"%@",check);
@@ -501,7 +504,7 @@ int colorInc = 5;
     {
         // NSLog(@"%@",name);
         whichPowerUp = 100;
-        name = [[NSString alloc] initWithString:@"Small Balls"];
+        [name setString:@"Small Balls"];
         for(int i = 0;i<balls.count;i++){
             [[balls objectAtIndex:i] setDisplayFrame:[CCSpriteFrame frameWithTexture:[[CCSprite spriteWithFile:@"ball-small.png"] texture] rect:CGRectMake(0,0, 53, 53)]];
         }
@@ -510,31 +513,32 @@ int colorInc = 5;
     if([check isEqualToString:POWER_DE_PLAYER]){
         // NSLog(@"%@",name);
         whichPowerUp = 300;
-        name = [[NSString alloc] initWithString:@"Small Player"];
+        [name setString:@"Small Player"];
+        [name setString:@"Small Player"]; 
         [player setDisplayFrame:[CCSpriteFrame frameWithTexture:[[CCSprite spriteWithFile:@"player-small.png"] texture] rect:CGRectMake(0,0, 49, 49)]];
     }
     if([check isEqualToString:POWER_SLOW_BALL]){
         //NSLog(@"%@",name);
         whichPowerUp = 200;
-        name = [[NSString alloc] initWithString:@"Slow Balls"];
+        [name setString:@"Slow Balls"];
     }
     if([check isEqualToString:POWER_INVINCIBILITY]){
         //NSLog(@"%@",name);
         whichPowerUp = 500;
-        name = [[NSString alloc] initWithString:@"Invincibility"];
+        [name setString:@"Invincibility"];
         
     }
     if([check isEqualToString:POWER_REVERSE_GUN]){
         //NSLog(@"%@",name);
         whichPowerUp = 700;
         usage = 4;
-        name = [[NSString alloc] initWithString:@"Reverse Gun"];
+        [name setString:@"Reverse Gun"];
     }
     if([check isEqualToString:POWER_SHIELD]){
         //NSLog(@"%@",name);
         whichPowerUp = 400;
         usage = 1;
-        name = [[NSString alloc] initWithString:@"Shield"];
+        [name setString:@"Shield"];
         shield = [CCSprite spriteWithFile:@"shieldgraphic.png"];
         shield.position=player.position;
         [self addChild:shield];
@@ -544,7 +548,7 @@ int colorInc = 5;
     if([check isEqualToString:POWER_SHIELD_MULTI]){
         //NSLog(@"%@",name);
         whichPowerUp = 800;
-        name = [[NSString alloc] initWithString:@"Multiplier Shield"];
+        [name setString:@"Multiplier Shield"];
         usage = 1;
         shieldmult = [CCSprite spriteWithFile:@"shieldmultipliergraphic.png"];
         shieldmult.position = player.position;
@@ -555,9 +559,9 @@ int colorInc = 5;
         // NSLog(@"%@",name);
         whichPowerUp = 600;
         usage = 4;
-        name = [[NSString alloc] initWithString:@"Stun Gun"];
+        [name setString:@"Stun Gun"];
     }
-    NSLog(@"checked: %@ -- %@",name,check);
+   // NSLog(@"checked: %@ -- %@",name,check);
     [self removePWR];
     
     poweruplayer = [CCLayerColor layerWithColor:ccc4(150, 150, 150, 80) width:320 height:60];
@@ -569,23 +573,25 @@ int colorInc = 5;
     powerupLabel = [CCLabelBMFont labelWithString:@"" fntFile:@"poweruptext.fnt"];
     powerupLabel.position = ccp(160,20);
     [poweruplayer addChild:powerupLabel];
-    
     CCLabelBMFont *powerupTitle = [CCLabelBMFont labelWithString:name fntFile:@"poweruptext.fnt"];
     // powerupTitle.anchorPoint = ccp(-1,1);
     [powerupTitle setContentSize:CGSizeMake(140, 50)];
     powerupTitle.position = ccp(70,55);
     NSLog(@"adding title");
     [poweruplayer addChild:powerupTitle];
-    NSLog(@"title added");
-    [self schedule:@selector(updatePowerupLabel:) interval:0.01f];
+    NSLog(@"title added - POWERUP:%i",whichPowerUp);
+    [self schedule:@selector(updatePowerupLabel:) interval:0.01f];  /// NOT WORKING
+    NSLog(@"shouldve scheduled");
     //[self performSelector:@selector(cleanupPowerupLayer) withObject:nil afterDelay:5.0f];
     [name release];
+    [check release];
     isPowerupLayerOnScreen = YES;
 }
 
 -(void)updatePowerupLabel:(ccTime)dt
 {
-    NSMutableString *pup;
+    NSMutableString *pup = [[NSMutableString alloc] init];
+    
     switch (whichPowerUp) {
         case 100:
             
@@ -597,24 +603,28 @@ int colorInc = 5;
             
             
         case 500:
+          //  NSLog(@"A timer powerup has been called - %i",whichPowerUp);
             countdown = countdown - dt;
             if(countdown <= 0){
                 [self performSelector:@selector(cleanupPowerupLayer)];
                 return;
             }
-            pup = [[NSString alloc] initWithFormat:@"Time: %.3f",countdown];
+           // pup = [[NSString alloc] initWithFormat:@"Time: %.3f",countdown];
+            [pup appendFormat:@"Time: %.3f",countdown];
             break;
             
         case 400:
             
             
         case 800:
+           // NSLog(@"A shield powerup has been called - %i",whichPowerUp);
             if(usage <= 0)
             {
                 [self performSelector:@selector(cleanupPowerupLayer)];
                 return;
             }
-            pup = [[NSString alloc] initWithString:@"Shield UP"];
+           // pup = [[NSString alloc] initWithString:@"Shield UP"];
+            [pup setString:@"Shield UP"];
             break;
             
             
@@ -622,13 +632,14 @@ int colorInc = 5;
             
             
         case 700:
-            
+           // NSLog(@"A usage powerup has been called - %i",whichPowerUp);
             if(usage <= 0)
             {
                 [self performSelector:@selector(cleanupPowerupLayer)];
                 return;
             }
-            pup = [[NSString alloc] initWithFormat:@"Shots Left: %i",usage];
+           // pup = [[NSString alloc] initWithFormat:@"Shots Left: %i",usage];
+            [pup appendFormat:@"Shots Left: %i",usage];
             break;
             
             
@@ -638,7 +649,7 @@ int colorInc = 5;
     
     //[pup appendFormat:@"   Time: %...f",(countdown)];
     
-    //NSLog(@"%@",pup);
+    //NSLog(@"%@ + %i",pup,whichPowerUp);
     [powerupLabel setString:pup];
     [powerupLabel setColor:ccc3(bgGreen,bgRed,bgBlue)];
     [pup release];
@@ -740,9 +751,12 @@ int colorInc = 5;
 
 -(CGPoint)randomPowerupLocation
 {
+    int padding = 30;
     int x = arc4random()%320;
     int y = arc4random()%480;
-    while(sqrtf((x-player.position.x)*(x-player.position.x) + (y-player.position.y)*(y-player.position.y)) < 100){
+    while((sqrtf((x-player.position.x)*(x-player.position.x) + (y-player.position.y)*(y-player.position.y)) < 100) 
+          || (x < 0+padding || x > 320-padding) || (y < 0 + padding || y > 480-padding))
+    {
         x = arc4random()%320;
         y = arc4random()%480;
     }
@@ -838,15 +852,15 @@ int colorInc = 5;
     } else {
         daScore = daScore + dt;
     }
-    NSString *score = [[NSString alloc] initWithFormat:@"SCORE: %.f",(daScore*1000)];
-    [scoreLabel setString:score];
+   // NSString *score = ;
+    [scoreLabel setString:[[NSString alloc] initWithFormat:@"SCORE: %.f",(daScore*1000)]];
     /* if(scoreLabel.scale < 1.06){
      scoreLabel.scale = log10f((daScore+10))/1.5;
      }*/
     // NSLog(@"scale: %f",scoreLabel.scale);
     //scoreLabel.scale = 1.5;
     [scoreLabel setContentSize:CGSizeMake(320, 50)];
-    [score release];
+   //[score release];
     
 }
 
@@ -975,13 +989,13 @@ int colorInc = 5;
     greenPlayer = greenComp*multiplier;
     bluePlayer = blueComp*multiplier;
     for(int i = 0;i< balls.count ;i++){
-        CCSprite *ball = [balls objectAtIndex:i];
+        CCSprite *ballB = [balls objectAtIndex:i];
         
-        ball.color = ccc3(255-redPlayer, 255-greenPlayer, 255-bluePlayer);
+        ballB.color = ccc3(255-redPlayer, 255-greenPlayer, 255-bluePlayer);
         if(i == 0)
-            scoreLabel.color=ball.color;
+            scoreLabel.color=ballB.color;
         // ball.color = ccc3(abs(155-redPlayer)+100, abs(155-greenPlayer)+100, abs(155-bluePlayer)+100);
-        ball = nil;
+        ballB = nil;
     }
     
     /*  randRed = arc4random()%205 + 50;
@@ -1126,16 +1140,16 @@ int colorInc = 5;
     for(int i = 0;i< balls.count ;i++){
         // NSLog(@"Start next frame object: %i",i);
         // NSLog(@"creatingball");
-        CCSprite *ball = [balls objectAtIndex:i];
+        CCSprite *ballA= [balls objectAtIndex:i];
         // NSLog(@"ball created -- creating movement");
         NSValue *move1 = (NSValue*)[ballsMotion objectAtIndex:i];
         //NSLog(@"movement value created --- converting tocgpoint");
         CGPoint move = [move1 CGPointValue];
         //NSLog(@"cgpoint converted");
         if(whichPowerUp == 200){
-            ball.position = ccp((ball.position.x + (dT*move.x/2)), (ball.position.y + (dT*move.y/2)));
+            ballA.position = ccp((ballA.position.x + (dT*move.x/2)), (ballA.position.y + (dT*move.y/2)));
         } else {
-            ball.position = ccp((ball.position.x + dT*move.x), (ball.position.y + dT*move.y));
+            ballA.position = ccp((ballA.position.x + dT*move.x), (ballA.position.y + dT*move.y));
         }
         
         if(whichPowerUp == 400){
@@ -1152,10 +1166,10 @@ int colorInc = 5;
          move.x = -move.x;
          if(changeY)
          move.y = -move.y;*/
-        bool _lessX = ball.position.x < 0 +[ball contentSize].width/3;
-        bool _greaterX = ball.position.x > 320-[ball contentSize].width/3;
-        bool _lessY = ball.position.y < 0 +[ball contentSize].height/3;
-        bool _greaterY = ball.position.y > 480 -[ball contentSize].height/3;
+        bool _lessX = ballA.position.x < 0 +[ballA contentSize].width/3;
+        bool _greaterX = ballA.position.x > 320-[ballA contentSize].width/3;
+        bool _lessY = ballA.position.y < 0 +[ballA contentSize].height/3;
+        bool _greaterY = ballA.position.y > 480 -[ballA contentSize].height/3;
         if(_lessX)
             move.x = fabsf(move.x);
         if(_greaterX)
@@ -1165,19 +1179,23 @@ int colorInc = 5;
         if(_greaterY)
             move.y = -1*fabsf(move.y);
         
+        if(_lessX || _greaterX || _lessY || _greaterY)
+            [[SimpleAudioEngine sharedEngine] playEffect:@"balloffwall.wav"];
+        
+        
         if(move.x > 0){
-            ball.rotation = ball.rotation + 270*dT;
+            ballA.rotation = ballA.rotation + 270*dT;
             //NSLog(@"width: %f",ball.contentSize.width/2);
         } else {
-            ball.rotation = ball.rotation - 270*dT;
+            ballA.rotation = ballA.rotation - 270*dT;
         }
         /* CGRect ballBox = CGRectMake(ball.position.x-(ball.contentSize.width/2), ball.position.y-(ball.contentSize.height/2), ball.contentSize.width,ball.contentSize.height);
          CGRect playerBox = CGRectMake(player.position.x-(player.contentSize.width/2), player.position.y-(player.contentSize.height/2), player.contentSize.width, player.contentSize.height);
          if(CGRectIntersectsRect(ballBox,playerBox))*/
-        float playerball = ((player.contentSize.width/2)+(ball.contentSize.width/2))*((player.contentSize.width/2)+(ball.contentSize.width/2));
+        float playerball = ((player.contentSize.width/2)+(ballA.contentSize.width/2))*((player.contentSize.width/2)+(ballA.contentSize.width/2));
         
         //COLLISION
-        if((float)[self asbs:player.position ballPos:ball.position]<=(playerball+(1230187.5/playerball)))
+        if((float)[self asbs:player.position ballPos:ballA.position]<=(playerball+(1230187.5/playerball)))
         {
             NSLog(@"which power up: %i",whichPowerUp);
             switch (whichPowerUp) {
@@ -1194,7 +1212,7 @@ int colorInc = 5;
                     
                 default:
                     NSLog(@"size %.f",player.contentSize.width);
-                    NSLog(@"Colision detected  @ player location:(%.f,%.f) and ball location(%.f,%.f)", player.position.x,player.position.y,ball.position.x,ball.position.y);
+                    NSLog(@"Colision detected  @ player location:(%.f,%.f) and ball location(%.f,%.f)", player.position.x,player.position.y,ballA.position.x,ballA.position.y);
                     [self unscheduleAllSelectors];
                     //[self unscheduleUpdate];
                     self.isTouchEnabled = NO;
@@ -1203,6 +1221,8 @@ int colorInc = 5;
                     NSLog(@"about to call callme");
                     [self performSelector:@selector(callme) withObject:nil afterDelay:.7f];
                     NSLog(@"call callme");
+                    AudioServicesPlaySystemSound (kSystemSoundID_Vibrate);
+                    [[SimpleAudioEngine sharedEngine] playEffect:@"death.caf"];
                     return;
                     break;
             }
@@ -1210,7 +1230,7 @@ int colorInc = 5;
             
         }
         
-        float playerpowerup = ((player.contentSize.width/2)+(ball.contentSize.width/2))*((player.contentSize.width/2)+(ball.contentSize.width/2));
+        float playerpowerup = ((player.contentSize.width/2)+(ballA.contentSize.width/2))*((player.contentSize.width/2)+(ballA.contentSize.width/2));
         //Does this touch the power-up?
         if(isPowerUpOnScreen){
             if((float)[self asbs:player.position ballPos:powerup.position]<=(playerpowerup+(1230187.5/playerpowerup)))
@@ -1223,7 +1243,7 @@ int colorInc = 5;
          ball.scale = .75;
          }*/
         [ballsMotion replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:move]];
-        ball = nil;
+        ballA = nil;
         move1 = nil;
         //[whichBall release];
         //   NSLog(@"Start next frame object: %i",i);
@@ -1242,16 +1262,85 @@ int colorInc = 5;
 -(void)callme
 {
     NSLog(@"CALLEDME");
+    if(isGamePaused){
+        [self resumeGame:0];
+    }
     [self checkAchievementsAndUploadScore];
     NSLog(@"past checking acievements");
     [self diedAlert];
     NSLog(@"past died alert");
 }
 
+-(void)presentNewPowerup:(NSString*)powerupN
+{
+   CCLayer *congratsLayer = [CCLayer node];
+    congratsLayer.tag = 1994;
+    congratsLayer.position=ccp(0,10);
+    CCSprite *bck = [CCSprite spriteWithFile:@"deathscreen.png"];
+        CCSprite *bck1 = [CCSprite spriteWithFile:@"deathscreen.png"];
+    congratsLayer.scale = .1;
+    bck.position = ccp(160, 10);
+    bck1.position = ccp(160, 10);
+    [congratsLayer addChild:bck];
+    [congratsLayer addChild:bck1 ];
+    NSString *msg = @"You have unlocked: ";
+    NSString *unlock;
+    
+    float updown;
+    
+    if([powerupN isEqualToString:POWER_DE_BALL]){
+        unlock = @"Decrease Ball Size";
+        updown = 38;
+    }
+    if([powerupN isEqualToString:POWER_DE_PLAYER]){
+        unlock = @"Decrease Player Size";
+        updown = 38;
+    }
+    if([powerupN isEqualToString:POWER_INVINCIBILITY]){
+        unlock = @"Invincibility";
+        updown = 55;
+    }
+    if([powerupN isEqualToString:POWER_REVERSE_GUN]){
+        unlock = @"Reverse Gun";
+        updown = 55;
+    }
+    if([powerupN isEqualToString:POWER_SHIELD]){
+        unlock = @"Shield";
+        updown = 55;
+    }
+    if([powerupN isEqualToString:POWER_SHIELD_MULTI]){
+        unlock = @"Multiplier Shield";
+        updown = 38;
+    }
+    if([powerupN isEqualToString:POWER_SLOW_BALL]){
+        unlock = @"Decrease Ball Speed";
+        updown = 38;
+    }
+    if([powerupN isEqualToString:POWER_STUN_GUN]){
+        unlock = @"Stun Gun";
+        updown = 55;
+    }
+    
+    CCLabelTTF *Label = [CCLabelTTF labelWithString:msg  dimensions:CGSizeMake(220, 142) alignment:UITextAlignmentCenter lineBreakMode:UILineBreakModeWordWrap fontName:@"Marker Felt" fontSize:26];
+    CCLabelTTF *unlockLabel = [CCLabelTTF labelWithString:unlock dimensions:CGSizeMake(220, 142) alignment:UITextAlignmentCenter lineBreakMode:UILineBreakModeWordWrap fontName:@"Marker Felt" fontSize:40];
+    Label.position = ccp(160,10);
+    Label.color = ccc3(0, 255, 0);
+    unlockLabel.position = ccp(160, -1*(updown-10));
+    unlockLabel.color = ccc3(60, 255, 60);
+    unlockLabel.anchorPoint = ccp(.5f,.5f);
+    [congratsLayer addChild:Label];
+    [congratsLayer addChild:unlockLabel];
+    [self addChild:congratsLayer];
+    
+    [congratsLayer runAction:[CCScaleTo actionWithDuration:.4 scale:.7]];
+    congrats = YES;
+}
+
+
+
 -(void)checkAchievementsAndUploadScore
 {
-    OFLeaderboard *board;
-    OFHighScore *score;
+    
     switch (UIAppDelegate.mode) {
         case 1:
             //fast
@@ -1268,12 +1357,25 @@ int colorInc = 5;
             if(daScore*1000 >= 500000){
                 [[OFAchievement achievement:FAST_500K] updateProgressionComplete:100.0f andShowNotification:YES];
             }
-            if([save floatForKey:@"FastHighScore"] < daScore*1000)
+            /*if([save secureFloatForKey:@"FastHighScore" valid:&valid] < daScore*1000)
             {
                 [save setFloat:(daScore*1000) forKey:@"FastHighScore"];
                 score = [[OFHighScore alloc] initForSubmissionWithScore:(daScore*1000)];
                 [score submitTo:board];
                 //[OFHighScoreService setHighScore:(daScore*1000) forLeaderboard:LEADER_FAST onSuccessInvocation:OFDele onFailureInvocation:OFDelegate()];
+            }*/
+            validno;
+            BOOL beatFScore = [save secureFloatForKey:@"FastHighScore" valid:&valid] < daScore*1000;
+            if(!valid){
+                NSLog(@"Score Modified");
+                [save setSecureFloat:0 forKey:@"FastHighScore"];
+            } else {
+                if(beatFScore){
+                    [save setSecureFloat:(daScore*1000) forKey:@"FastHighScore"];
+                    score = [[OFHighScore alloc] initForSubmissionWithScore:(daScore*1000)];
+                    [score submitTo:board];
+                    //[OFHighScoreService setHighScore:(daScore*1000) forLeaderboard:LEADER_FAST onSuccessInvocation:OFDele onFailureInvocation:OFDelegate()];
+                }
             }
             break;
         case 2:
@@ -1291,11 +1393,24 @@ int colorInc = 5;
             if(daScore*1000 >= 500000){
                 [[OFAchievement achievement:MED_500K] updateProgressionComplete:100.0f andShowNotification:YES];
             }
-            if([save floatForKey:@"MediumHighScore"] < daScore*1000)
+            /*if([save floatForKey:@"MediumHighScore"] < daScore*1000)
             {
                 [save setFloat:(daScore*1000) forKey:@"MediumHighScore"];
                 score = [[OFHighScore alloc] initForSubmissionWithScore:(daScore*1000)];
                 [score submitTo:board];
+            }*/
+            validno;
+            BOOL beatMScore = [save secureFloatForKey:@"MediumHighScore" valid:&valid] < daScore*1000;
+            if(!valid){
+                NSLog(@"Score Modified");
+                [save setSecureFloat:0 forKey:@"MediumHighScore"];
+            } else {
+                if(beatMScore){
+                    [save setSecureFloat:(daScore*1000) forKey:@"MediumHighScore"];
+                    score = [[OFHighScore alloc] initForSubmissionWithScore:(daScore*1000)];
+                    [score submitTo:board];
+                    //[OFHighScoreService setHighScore:(daScore*1000) forLeaderboard:LEADER_FAST onSuccessInvocation:OFDele onFailureInvocation:OFDelegate()];
+                }
             }
             
             break;
@@ -1314,36 +1429,58 @@ int colorInc = 5;
             if(daScore*1000 >= 500000){
                 [[OFAchievement achievement:SLOW_500K] updateProgressionComplete:100.0f andShowNotification:YES];
             }
-            if([save floatForKey:@"SlowHighScore"] < daScore*1000)
+            /*if([save floatForKey:@"SlowHighScore"] < daScore*1000)
             {
                 [save setFloat:(daScore*1000) forKey:@"SlowHighScore"];
                 score = [[OFHighScore alloc] initForSubmissionWithScore:(daScore*1000)];
                 [score submitTo:board];
+            }*/
+            validno;
+            BOOL beatSScore = [save secureFloatForKey:@"SlowHighScore" valid:&valid] < daScore*1000;
+            if(!valid){
+                NSLog(@"Score Modified");
+                [save setSecureFloat:0 forKey:@"SlowHighScore"];
+            } else {
+                if(beatSScore){
+                    [save setSecureFloat:(daScore*1000) forKey:@"SlowHighScore"];
+                    score = [[OFHighScore alloc] initForSubmissionWithScore:(daScore*1000)];
+                    [score submitTo:board];
+                    //[OFHighScoreService setHighScore:(daScore*1000) forLeaderboard:LEADER_FAST onSuccessInvocation:OFDele onFailureInvocation:OFDelegate()];
+                }
             }
             break;
     }
     
     if(daScore*1000 < 30000){
-        
+         NSLog(@"<30k");
     } else if (daScore*1000 <60000){
         [self checkALL_30K];   
+        NSLog(@"30k-60k");
     } else if (daScore*1000 < 120000){
         [self checkALL_30K];
         [self checkALL_60K];
+         NSLog(@"60k-120k");
     } else if (daScore* 1000 < 500000){
         [self checkALL_30K];
         [self checkALL_60K];
         [self checkALL_120K];
+         NSLog(@"120k-500k");
     } else if (daScore*1000 >= 500000){
         [self checkALL_30K];
         [self checkALL_60K];
         [self checkALL_120K];
         [self checkALL_500K];
+         NSLog(@">500k");
     }
-    
-    float oldCum = [save floatForKey:@"CumulativeScore"];
+    validno;
+    float oldCum = [save secureFloatForKey:@"CumulativeScore" valid:&valid];
+    if(!valid){
+        oldCum = 0;
+    } else {
+        
+    }
     float newCum = oldCum + daScore*1000;
-    [save setFloat:newCum forKey:@"CumulativeScore"];
+    [save setSecureFloat:newCum forKey:@"CumulativeScore"];
     
     [self performSelector:@selector(updateCumPercentagesAndSendCum)];
     
@@ -1355,9 +1492,18 @@ int colorInc = 5;
 
 -(void)updateCumPercentagesAndSendCum
 {
+    
     OFLeaderboard*CumBoard = [OFLeaderboard leaderboard:LEADER_CUM];
-    float Cum = [save floatForKey:@"CumulativeScore"];
+    validno;
+    float Cum = [save secureFloatForKey:@"CumulativeScore" valid:&valid];
+    if(!valid){
+        Cum = 0;
+        NSLog(@"Cum Cheating");
+    } else {
+        
+    }
     OFHighScore *CumScore = [[OFHighScore alloc] initForSubmissionWithScore:Cum];
+    
     [CumScore submitTo:CumBoard];
     float outOf250 = 250000 > Cum ? Cum / 250000 *100 : 100;
     outOf250 < 100 ? [[OFAchievement achievement:CUM_250K] updateProgressionComplete:outOf250 andShowNotification:NO] : [[OFAchievement achievement:CUM_250K] updateProgressionComplete:outOf250 andShowNotification:YES];
@@ -1377,15 +1523,111 @@ int colorInc = 5;
     float outOf10000 = 10000000 > Cum ? Cum / 10000000 * 100 : 100;
     outOf10000 < 100 ? [[OFAchievement achievement:CUM_10000K] updateProgressionComplete:outOf10000 andShowNotification:NO] : [[OFAchievement achievement:CUM_10000K] updateProgressionComplete:outOf10000 andShowNotification:YES];
     
+    validno;
+    if(outOf750 == 100){
+        BOOL POWER_SHIELD_Activated = [save secureBoolForKey:POWER_SHIELD valid:&valid];
+        if(!valid){
+            [save setSecureBool:NO forKey:POWER_SHIELD];
+        } else {
+            if(!POWER_SHIELD_Activated){
+                [save setSecureBool:YES forKey:POWER_SHIELD];
+                [UIAppDelegate.powerups addObject:POWER_SHIELD];
+                [self performSelector:@selector(presentNewPowerup:) withObject:POWER_SHIELD];
+            }
+        }
+    }
+    validno;
+    if(outOf1500 == 100){
+        BOOL POWER_INVINCIBILITY_Activated = [save secureBoolForKey:POWER_INVINCIBILITY valid:&valid];
+        if(!valid){
+            [save setSecureBool:NO forKey:POWER_INVINCIBILITY];
+        } else {
+            if(!POWER_INVINCIBILITY_Activated){
+                [save setSecureBool:YES forKey:POWER_INVINCIBILITY];
+                [UIAppDelegate.powerups addObject:POWER_INVINCIBILITY];
+                [self performSelector:@selector(presentNewPowerup:) withObject:POWER_INVINCIBILITY];
+            }
+        }
+    }
+    
+    validno;
+    if(outOf3000 == 100){
+        BOOL POWER_REVERSE_GUN_Activated = [save secureBoolForKey:POWER_REVERSE_GUN valid:&valid];
+        if(!valid){
+            [save setSecureBool:NO forKey:POWER_REVERSE_GUN];
+        } else {
+            if(!POWER_REVERSE_GUN_Activated){
+                [save setSecureBool:YES forKey:POWER_REVERSE_GUN];
+                [UIAppDelegate.powerups addObject:POWER_REVERSE_GUN];
+                [self performSelector:@selector(presentNewPowerup:) withObject:POWER_REVERSE_GUN];
+            }
+        }
+    }
+    
+    validno;
+    /*if(outOf5000 == 100){
+        BOOL POWER_STUN_GUN_Activated = [save secureBoolForKey:POWER_STUN_GUN valid:&valid];
+        if(!valid){
+            [save setSecureBool:NO forKey:POWER_STUN_GUN];
+        } else {
+            if(!POWER_STUN_GUN_Activated){
+                [save setSecureBool:YES forKey:POWER_STUN_GUN];
+                [UIAppDelegate.powerups addObject:POWER_STUN_GUN];
+            }
+        }
+    }*/
+    
+    validno;
+    if(outOf10000 == 100){
+        BOOL POWER_SHIELD_MULTI_Activated = [save secureBoolForKey:POWER_SHIELD_MULTI valid:&valid];
+        if(!valid){
+            [save setSecureBool:NO forKey:POWER_SHIELD_MULTI];
+        } else {
+            if(!POWER_SHIELD_MULTI_Activated){
+                [save setSecureBool:YES forKey:POWER_SHIELD_MULTI];
+                [UIAppDelegate.powerups addObject:POWER_SHIELD_MULTI];
+                [self performSelector:@selector(presentNewPowerup:) withObject:POWER_SHIELD_MULTI];
+            }
+        }
+    }
+    
 }
 
 -(void)checkALL_30K
 {
     int complete30 = 0;
-    complete30 = [[OFAchievement achievement:SLOW_30K] isUnlocked] ? complete30 + 1 : complete30;
+    /*complete30 = [[OFAchievement achievement:SLOW_30K] isUnlocked] ? complete30 + 1 : complete30;
     complete30 = [[OFAchievement achievement:MED_30K] isUnlocked] ? complete30 + 1 : complete30;
-    complete30 = [[OFAchievement achievement:FAST_30K] isUnlocked] ? complete30 + 1 : complete30;
+    complete30 = [[OFAchievement achievement:FAST_30K] isUnlocked] ? complete30 + 1 : complete30;*/
+    validno;
+    float num = [save secureFloatForKey:@"SlowHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 29999){
+            complete30 = complete30+1;
+        }
+    }
+    validno;
+    num = [save secureFloatForKey:@"MediumHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 29999){
+            complete30 = complete30+1;
+        }
+    }
+    validno;
+    num = [save secureFloatForKey:@"FastHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 29999){
+            complete30 = complete30+1;
+        }
+    }
     
+    NSLog(@"complete30: %i",complete30);
     switch (complete30) {
         case 0:
             break;
@@ -1403,9 +1645,21 @@ int colorInc = 5;
         case 3:
             [[OFAchievement achievement:ALL_30K] updateProgressionComplete:100.0f andShowNotification:YES];
             NSLog(@"complete30 : 3");
-            if(![save boolForKey:POWER_DE_PLAYER]){
+            /*if(![save boolForKey:POWER_DE_PLAYER]){
                 [save setBool:YES forKey:POWER_DE_PLAYER];
                 [UIAppDelegate.powerups addObject:POWER_DE_PLAYER];
+            }*/
+            validno;
+            BOOL POWER_DE_PLAYER_Activated = [save secureBoolForKey:POWER_DE_PLAYER valid:&valid];
+            if(!valid){
+                [save setSecureBool:NO forKey:POWER_DE_PLAYER];
+                NSLog(@"Cheater on powerup");
+            } else {
+                if(!POWER_DE_PLAYER_Activated){
+                    [save setSecureBool:YES forKey:POWER_DE_PLAYER];
+                    [UIAppDelegate.powerups addObject:POWER_DE_PLAYER];
+                    [self performSelector:@selector(presentNewPowerup:) withObject:POWER_DE_PLAYER];
+                }
             }
             break;
         default:
@@ -1417,9 +1671,37 @@ int colorInc = 5;
 -(void)checkALL_60K
 {
     int complete60 = 0;
-    complete60 = [[OFAchievement achievement:SLOW_60K] isUnlocked] ? complete60 + 1 : complete60;
+   /* complete60 = [[OFAchievement achievement:SLOW_60K] isUnlocked] ? complete60 + 1 : complete60;
     complete60 = [[OFAchievement achievement:MED_60K] isUnlocked] ? complete60 + 1 : complete60;
-    complete60 = [[OFAchievement achievement:FAST_60K] isUnlocked] ? complete60 + 1 : complete60;
+    complete60 = [[OFAchievement achievement:FAST_60K] isUnlocked] ? complete60 + 1 : complete60;*/
+    validno;
+    float num = [save secureFloatForKey:@"SlowHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 59999){
+            complete60 = complete60+1;
+        }
+    }
+    validno;
+    num = [save secureFloatForKey:@"MediumHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 59999){
+            complete60 = complete60+1;
+        }
+    }
+    validno;
+    num = [save secureFloatForKey:@"FastHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 59999){
+            complete60 = complete60+1;
+        }
+    }
+
     
     switch (complete60) {
         case 0:
@@ -1435,9 +1717,21 @@ int colorInc = 5;
             
         case 3:
             [[OFAchievement achievement:ALL_60K] updateProgressionComplete:100.0f andShowNotification:YES];
-            if(![save boolForKey:POWER_SLOW_BALL]){
+           /* if(![save boolForKey:POWER_SLOW_BALL]){
                 [save setBool:YES forKey:POWER_SLOW_BALL];
                 [UIAppDelegate.powerups addObject:POWER_SLOW_BALL];
+            }*/
+            validno;
+            BOOL POWER_SLOW_BALL_Activated = [save secureBoolForKey:POWER_SLOW_BALL valid:&valid];
+            if(!valid){
+                [save setSecureBool:NO forKey:POWER_SLOW_BALL];
+                NSLog(@"Cheater on powerup");
+            } else {
+                if(!POWER_SLOW_BALL_Activated){
+                    [save setSecureBool:YES forKey:POWER_SLOW_BALL];
+                    [UIAppDelegate.powerups addObject:POWER_SLOW_BALL];
+                    [self performSelector:@selector(presentNewPowerup:) withObject:POWER_SLOW_BALL];
+                }
             }
             break;
         default:
@@ -1449,9 +1743,37 @@ int colorInc = 5;
 -(void)checkALL_120K
 {
     int complete120 = 0;
-    complete120 = [[OFAchievement achievement:SLOW_120K] isUnlocked] ? complete120 + 1 : complete120;
+   /* complete120 = [[OFAchievement achievement:SLOW_120K] isUnlocked] ? complete120 + 1 : complete120;
     complete120 = [[OFAchievement achievement:MED_120K] isUnlocked] ? complete120 + 1 : complete120;
-    complete120 = [[OFAchievement achievement:FAST_120K] isUnlocked] ? complete120 + 1 : complete120;
+    complete120 = [[OFAchievement achievement:FAST_120K] isUnlocked] ? complete120 + 1 : complete120;*/
+    validno;
+    float num = [save secureFloatForKey:@"SlowHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 119999){
+            complete120 = complete120+1;
+        }
+    }
+    validno;
+    num = [save secureFloatForKey:@"MediumHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 119999){
+            complete120 = complete120+1;
+        }
+    }
+    validno;
+    num = [save secureFloatForKey:@"FastHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 119999){
+            complete120 = complete120+1;
+        }
+    }
+
     
     switch (complete120) {
         case 0:
@@ -1467,9 +1789,21 @@ int colorInc = 5;
             
         case 3:
             [[OFAchievement achievement:ALL_120K] updateProgressionComplete:100.0f andShowNotification:YES];
-            if(![save boolForKey:POWER_STUN_GUN]){
+            /*if(![save boolForKey:POWER_STUN_GUN]){
                 [save setBool:YES forKey:POWER_STUN_GUN];
                 [UIAppDelegate.powerups addObject:POWER_STUN_GUN];
+            }*/
+            validno;
+            BOOL POWER_DE_BALL_Activated = [save secureBoolForKey:POWER_DE_BALL valid:&valid];
+            if(!valid){
+                [save setSecureBool:NO forKey:POWER_DE_BALL];
+                NSLog(@"Cheater on powerup");
+            } else {
+                if(!POWER_DE_BALL_Activated){
+                    [save setSecureBool:YES forKey:POWER_DE_BALL];
+                    [UIAppDelegate.powerups addObject:POWER_DE_BALL];
+                    [self performSelector:@selector(presentNewPowerup:) withObject:POWER_DE_BALL];
+                }
             }
             break;
         default:
@@ -1481,9 +1815,37 @@ int colorInc = 5;
 -(void)checkALL_500K
 {
     int complete500 = 0;
-    complete500 = [[OFAchievement achievement:SLOW_500K] isUnlocked] ? complete500 + 1 : complete500;
+    /*complete500 = [[OFAchievement achievement:SLOW_500K] isUnlocked] ? complete500 + 1 : complete500;
     complete500 = [[OFAchievement achievement:MED_500K] isUnlocked] ? complete500 + 1 : complete500;
-    complete500 = [[OFAchievement achievement:FAST_500K] isUnlocked] ? complete500 + 1 : complete500;
+    complete500 = [[OFAchievement achievement:FAST_500K] isUnlocked] ? complete500 + 1 : complete500;*/
+    validno;
+    float num = [save secureFloatForKey:@"SlowHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 499999){
+            complete500 = complete500+1;
+        }
+    }
+    validno;
+    num = [save secureFloatForKey:@"MediumHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 499999){
+            complete500 = complete500+1;
+        }
+    }
+    validno;
+    num = [save secureFloatForKey:@"FastHighScore" valid:&valid];
+    if(!valid){
+        
+    } else {
+        if (num > 499999){
+            complete500 = complete500+1;
+        }
+    }
+
     
     switch (complete500) {
         case 0:
@@ -1499,10 +1861,23 @@ int colorInc = 5;
             
         case 3:
             [[OFAchievement achievement:ALL_500K] updateProgressionComplete:100.0f andShowNotification:YES];
-            if(![save boolForKey:POWER_SHIELD_MULTI]){
+            /*if(![save boolForKey:POWER_SHIELD_MULTI]){
                 [save setBool:YES forKey:POWER_SHIELD_MULTI];
                 [UIAppDelegate.powerups addObject:POWER_SHIELD_MULTI];
+            }*/
+            validno;
+            BOOL POWER_STUN_GUN_Activated = [save secureBoolForKey:POWER_STUN_GUN valid:&valid];
+            if(!valid){
+                [save setSecureBool:NO forKey:POWER_STUN_GUN];
+                NSLog(@"Cheater on powerup");
+            } else {
+                if(!POWER_STUN_GUN_Activated){
+                    [save setSecureBool:YES forKey:POWER_STUN_GUN];
+                    [UIAppDelegate.powerups addObject:POWER_STUN_GUN];
+                    [self performSelector:@selector(presentNewPowerup:) withObject:POWER_STUN_GUN];
+                }
             }
+
             break;
         default:
             break;
@@ -1582,21 +1957,61 @@ int colorInc = 5;
 -(void)diedAlert
 {
     self.isTouchEnabled = NO;
-    UIAlertView* dialog = [[UIAlertView alloc] init];
+    /*UIAlertView* dialog = [[UIAlertView alloc] init];
 	[dialog setDelegate:self];
 	[dialog setTitle:@"Game Over"];
-    NSString *msg = [[NSString alloc] initWithFormat:@"Your score was: %.f. ---------------- Do you wish to play again?",daScore*1000];
-	[dialog setMessage:msg];
+    	[dialog setMessage:msg];
 	[dialog addButtonWithTitle:@"Yes"];
 	[dialog addButtonWithTitle:@"No"];
 	[dialog show];
 	[dialog release];
+    [msg release];*/
+    NSString *msg = [[NSString alloc] initWithFormat:@"Score: %.f",daScore*1000];
+    CCLayer *diedlayer = [[CCLayer alloc] init];
+    diedlayer.tag = 666;
+    CCSprite *bckDied = [[CCSprite alloc] initWithFile:@"deathscreen.png"];
+    bckDied.tag = 1212;
+    bckDied.position = ccp(160,240);
+    bckDied.scale = .1;
+    
+    CCMenuItemLabel *score1 = [[CCMenuItemLabel alloc] initWithLabel:[CCLabelTTF labelWithString:msg fontName:@"Arial" fontSize:20] target:nil selector:nil];
+    CCMenuItemLabel *gohome = [[CCMenuItemLabel alloc] initWithLabel:[CCLabelTTF labelWithString:@"RETURN TO MENU" fontName:@"Arial" fontSize:20] target:self selector:@selector(goHome:)];
+    CCMenuItemLabel *playagain = [[CCMenuItemLabel alloc] initWithLabel:[CCLabelTTF labelWithString:@"PLAY AGAIN" fontName:@"Arial" fontSize:20] target:self selector:@selector(playAgain)];
+    /*CCMenuItemLabel *call = [[CCMenuItemLabel alloc] initWithLabel:[CCLabelTTF labelWithString:@"TESTICLES" fontName:@"Arial" fontSize:20] target:self selector:@selector(haveFun)];*/
+    CCMenu *menu4 = [CCMenu menuWithItems:score1, gohome,playagain,nil];
+    [menu4 alignItemsVerticallyWithPadding:10];
+    menu4.tag = 4444;
+    
+    [diedlayer addChild:bckDied];
+    [diedlayer addChild:menu4];
+    [menu4 setOpacity:0];
+    [bckDied setOpacity:0];
+    [self addChild:diedlayer];
     [msg release];
-    
-    
+    [bckDied runAction:[CCSpawn actions:[CCScaleTo actionWithDuration:.4 scale:1],[CCFadeIn actionWithDuration:.4],nil]];
+    [menu4 runAction:[CCFadeIn actionWithDuration:.4]];
 }
 
-- (void) alertView:(UIAlertView *)alert clickedButtonAtIndex:(NSInteger)buttonIndex
+
+-(void)playAgain
+{
+    if(congrats){
+        [self removeChildByTag:1994 cleanup:YES];
+    }
+    NSLog(@"width: %f height: %f",[self getChildByTag:666].contentSize.width,[self getChildByTag:666].contentSize.height);
+    self.isTouchEnabled = YES;
+    NSLog(@"called");
+    [[[self getChildByTag:666] getChildByTag:4444] runAction:[CCFadeOut actionWithDuration:.3]];
+    [[[self getChildByTag:666] getChildByTag:1212] runAction:[CCSpawn actions:[CCScaleTo actionWithDuration:.4 scaleX:(.1) scaleY:(.1)],[CCSequence actions:[CCFadeOut actionWithDuration:.5],[CCCallBlock actionWithBlock:(^{
+        
+         [self removeChildByTag:666 cleanup:YES];
+        
+    })],nil],nil]];
+
+   
+}
+
+/*- (void) alertView:(UIAlertView *)alert clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     self.isTouchEnabled = YES;
 	if(buttonIndex==0) {
@@ -1608,7 +2023,7 @@ int colorInc = 5;
         [self goHome:nil];
         return;
     }
-}
+}*/
 
 -(float)asbs:(CGPoint)_arrowPos ballPos:(CGPoint)_ballPos
 {
@@ -1627,7 +2042,27 @@ int colorInc = 5;
 	// cocos2d will automatically release all the children (Label)
 	
 	// don't forget to call "super dealloc"
-	[super dealloc];
+	//[balls removeAllObjects];
+    [self removeAllChildrenWithCleanup:YES];
+	self.balls = nil;
+	self.ballsMotion = nil;
+	self.fileNames = nil;
+	
+	//self.player = nil;
+	//self.pauseBtn = nil;
+	//self.background = nil;
+	//self.scoreLabel = nil;
+	//self.powerupLabel = nil;
+	//self.pauseLayer = nil;
+	//self.pauseMenu = nil;
+	//if(self.poweruplayer != nil)
+      //  self.poweruplayer = nil;
+	//self.shield = nil;
+	//self.shieldmult = nil;
+    [balls release];
+    [ballsMotion release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
 }
 @synthesize powerup;
 @end

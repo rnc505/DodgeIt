@@ -15,7 +15,10 @@
 
 #import "RootViewController.h"
 #import "GameConfig.h"
-
+#import "InfopaneViewController.h"
+#import "TitleScreen.h"
+#define UIAppDelegate \
+((AppDelegate *)[UIApplication sharedApplication].delegate)
 @implementation RootViewController
 
 /*
@@ -150,6 +153,17 @@
     [super dealloc];
 }
 
+-(void)showInfoPane
+{
+    InfopaneViewController *vc = [[[InfopaneViewController alloc] initWithNibName:@"InfopaneViewController" bundle:nil]autorelease];
+    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:vc]autorelease];  
+    //vc.delegate = self;
+   // vc.delegate = [TitleScreen node];//(TitleScreen*)[[CCDirector sharedDirector]notificationNode];//[TitleScreen ];
+    [self presentModalViewController:navigationController animated:YES];
+   // [self.view addSubview:navigationController.view];
+}
+
+
 -(void)removeAdMobBanner{
     NSLog(@"calling removeadbanner");
     //NSLog(@"remove google ad");
@@ -157,6 +171,9 @@
     [gADBbannerView release];
     //gADBbannerView=nil;
 }
+
+
+
 
 -(void) addAdMobBanner:(CGSize)adSize{
     //NSLog(@"adding Admob");
@@ -175,7 +192,7 @@
     // Let the runtime know which UIViewController to restore after taking
     // the user wherever the ad goes and add it to the view hierarchy.
     gADBbannerView.rootViewController = self;
-    
+    gADBbannerView.tag = 99599;
     [self.view addSubview:gADBbannerView];
     
     [gADBbannerView loadRequest:[GADRequest request]];
