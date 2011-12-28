@@ -1377,6 +1377,7 @@ int colorInc = 5;
                     //[OFHighScoreService setHighScore:(daScore*1000) forLeaderboard:LEADER_FAST onSuccessInvocation:OFDele onFailureInvocation:OFDelegate()];
                 }
             }
+            
             break;
         case 2:
             //medium
@@ -1533,6 +1534,7 @@ int colorInc = 5;
                 [save setSecureBool:YES forKey:POWER_SHIELD];
                 [UIAppDelegate.powerups addObject:POWER_SHIELD];
                 [self performSelector:@selector(presentNewPowerup:) withObject:POWER_SHIELD];
+                [TestFlight passCheckpoint:@"Shield Unlocked"];
             }
         }
     }
@@ -1546,6 +1548,7 @@ int colorInc = 5;
                 [save setSecureBool:YES forKey:POWER_INVINCIBILITY];
                 [UIAppDelegate.powerups addObject:POWER_INVINCIBILITY];
                 [self performSelector:@selector(presentNewPowerup:) withObject:POWER_INVINCIBILITY];
+                [TestFlight passCheckpoint:@"Invincibility Unlocked"];
             }
         }
     }
@@ -1560,6 +1563,7 @@ int colorInc = 5;
                 [save setSecureBool:YES forKey:POWER_REVERSE_GUN];
                 [UIAppDelegate.powerups addObject:POWER_REVERSE_GUN];
                 [self performSelector:@selector(presentNewPowerup:) withObject:POWER_REVERSE_GUN];
+                [TestFlight passCheckpoint:@"Reverse Gun Unlocked"];
             }
         }
     }
@@ -1587,6 +1591,7 @@ int colorInc = 5;
                 [save setSecureBool:YES forKey:POWER_SHIELD_MULTI];
                 [UIAppDelegate.powerups addObject:POWER_SHIELD_MULTI];
                 [self performSelector:@selector(presentNewPowerup:) withObject:POWER_SHIELD_MULTI];
+                [TestFlight passCheckpoint:@"Multiplier Shield Unlocked"];
             }
         }
     }
@@ -1659,6 +1664,7 @@ int colorInc = 5;
                     [save setSecureBool:YES forKey:POWER_DE_PLAYER];
                     [UIAppDelegate.powerups addObject:POWER_DE_PLAYER];
                     [self performSelector:@selector(presentNewPowerup:) withObject:POWER_DE_PLAYER];
+                    [TestFlight passCheckpoint:@"Decrease Player Size Unlocked"];
                 }
             }
             break;
@@ -1731,6 +1737,7 @@ int colorInc = 5;
                     [save setSecureBool:YES forKey:POWER_SLOW_BALL];
                     [UIAppDelegate.powerups addObject:POWER_SLOW_BALL];
                     [self performSelector:@selector(presentNewPowerup:) withObject:POWER_SLOW_BALL];
+                    [TestFlight passCheckpoint:@"Decrease Ball Speed Unlocked"];
                 }
             }
             break;
@@ -1803,6 +1810,7 @@ int colorInc = 5;
                     [save setSecureBool:YES forKey:POWER_DE_BALL];
                     [UIAppDelegate.powerups addObject:POWER_DE_BALL];
                     [self performSelector:@selector(presentNewPowerup:) withObject:POWER_DE_BALL];
+                    [TestFlight passCheckpoint:@"Decrease Ball Size Unlocked"];
                 }
             }
             break;
@@ -1875,6 +1883,7 @@ int colorInc = 5;
                     [save setSecureBool:YES forKey:POWER_STUN_GUN];
                     [UIAppDelegate.powerups addObject:POWER_STUN_GUN];
                     [self performSelector:@selector(presentNewPowerup:) withObject:POWER_STUN_GUN];
+                    [TestFlight passCheckpoint:@"Stun Gun Unlocked"];
                 }
             }
 

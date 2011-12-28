@@ -29,10 +29,8 @@
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>get-task-allow</key>
-	<true/>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.0.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>
@@ -50,5 +48,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>get-task-allow</key>
+	<true/>
 </dict>
 </plist>

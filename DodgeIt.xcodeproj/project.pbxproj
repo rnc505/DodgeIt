@@ -19,7 +19,7 @@
 		152EBA2814AB629D007FC674 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 152EBA2414AB629D007FC674 /* libTestFlight.a */; };
 		152EBA2914AB629D007FC674 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 152EBA2514AB629D007FC674 /* README.txt */; };
 		152EBA2A14AB629D007FC674 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 152EBA2614AB629D007FC674 /* release_notes.txt */; };
-		152EBA3114AB852F007FC674 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 152EBA3014AB852F007FC674 /* Entitlements.plist */; };
+		152EBA3314AB924F007FC674 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 152EBA3214AB924F007FC674 /* Entitlements.plist */; };
 		153A21891495815C00F06F4C /* deathscreen-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 153A21871495815C00F06F4C /* deathscreen-hd.png */; };
 		153A218A1495815C00F06F4C /* deathscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 153A21881495815C00F06F4C /* deathscreen.png */; };
 		154AF7A11469D09500CAB309 /* background-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 154AF79F1469D09500CAB309 /* background-hd.png */; };
@@ -247,7 +247,7 @@
 		152EBA2514AB629D007FC674 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		152EBA2614AB629D007FC674 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
 		152EBA2714AB629D007FC674 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		152EBA3014AB852F007FC674 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		152EBA3214AB924F007FC674 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		153A21871495815C00F06F4C /* deathscreen-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deathscreen-hd.png"; sourceTree = "<group>"; };
 		153A21881495815C00F06F4C /* deathscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deathscreen.png; sourceTree = "<group>"; };
 		154AF79F1469D09500CAB309 /* background-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-hd.png"; sourceTree = "<group>"; };
@@ -747,7 +747,7 @@
 		15C30C171463918A00833E11 = {
 			isa = PBXGroup;
 			children = (
-				152EBA3014AB852F007FC674 /* Entitlements.plist */,
+				152EBA3214AB924F007FC674 /* Entitlements.plist */,
 				157458CD1494711200E09C1D /* MessageUI.framework */,
 				157458CC1494710300E09C1D /* AudioToolbox.framework */,
 				15C30C361463918B00833E11 /* DodgeIt */,
@@ -1324,7 +1324,7 @@
 				1529687414A2C3A8004BCF99 /* powerup.caf in Resources */,
 				152EBA2914AB629D007FC674 /* README.txt in Resources */,
 				152EBA2A14AB629D007FC674 /* release_notes.txt in Resources */,
-				152EBA3114AB852F007FC674 /* Entitlements.plist in Resources */,
+				152EBA3314AB924F007FC674 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1479,6 +1479,8 @@
 					armv6,
 					armv7,
 				);
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gary COHEN (HV7P7BV2GF)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1571,6 +1573,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gary COHEN (HV7P7BV2GF)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1614,6 +1618,8 @@
 					armv6,
 					armv7,
 				);
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gary COHEN (HV7P7BV2GF)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
