@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1500ABD714AE047B00097F49 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 1500ABD314AE047B00097F49 /* Icon-72.png */; };
+		1500ABD814AE047B00097F49 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 1500ABD414AE047B00097F49 /* Icon-Small-50.png */; };
+		1500ABD914AE047B00097F49 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 1500ABD514AE047B00097F49 /* Icon-Small.png */; };
+		1500ABDA14AE047B00097F49 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1500ABD614AE047B00097F49 /* Icon-Small@2x.png */; };
+		1500ABDD14AE0C5800097F49 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1500ABDC14AE0C5800097F49 /* iAd.framework */; };
+		1500ABE114AE19F600097F49 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1500ABE014AE19F600097F49 /* Entitlements.plist */; };
 		1502B6CB1475E3EF000CE8DC /* OFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1502B6CA1475E3EF000CE8DC /* OFConstants.m */; };
 		15055ADB147F5413006BA8F0 /* poweruptext-hd.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 15055AD7147F5413006BA8F0 /* poweruptext-hd.fnt */; };
 		15055ADC147F5413006BA8F0 /* poweruptext-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 15055AD8147F5413006BA8F0 /* poweruptext-hd.png */; };
@@ -19,7 +25,6 @@
 		152EBA2814AB629D007FC674 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 152EBA2414AB629D007FC674 /* libTestFlight.a */; };
 		152EBA2914AB629D007FC674 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 152EBA2514AB629D007FC674 /* README.txt */; };
 		152EBA2A14AB629D007FC674 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 152EBA2614AB629D007FC674 /* release_notes.txt */; };
-		152EBA3314AB924F007FC674 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 152EBA3214AB924F007FC674 /* Entitlements.plist */; };
 		153A21891495815C00F06F4C /* deathscreen-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 153A21871495815C00F06F4C /* deathscreen-hd.png */; };
 		153A218A1495815C00F06F4C /* deathscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 153A21881495815C00F06F4C /* deathscreen.png */; };
 		154AF7A11469D09500CAB309 /* background-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 154AF79F1469D09500CAB309 /* background-hd.png */; };
@@ -99,10 +104,6 @@
 		15C30C331463918B00833E11 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C30C321463918B00833E11 /* Foundation.framework */; };
 		15C30C351463918B00833E11 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C30C341463918B00833E11 /* CoreGraphics.framework */; };
 		15C30C3B1463918B00833E11 /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C30C3A1463918B00833E11 /* fps_images.png */; };
-		15C30C3D1463918B00833E11 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C30C3C1463918B00833E11 /* Icon-72.png */; };
-		15C30C3F1463918B00833E11 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C30C3E1463918B00833E11 /* Icon-Small-50.png */; };
-		15C30C411463918B00833E11 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C30C401463918B00833E11 /* Icon-Small.png */; };
-		15C30C431463918B00833E11 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15C30C421463918B00833E11 /* Icon-Small@2x.png */; };
 		15C30C4A1463918B00833E11 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 15C30C491463918B00833E11 /* iTunesArtwork */; };
 		15C30C4F1463918B00833E11 /* CCAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C30C4E1463918B00833E11 /* CCAction.m */; };
 		15C30C521463918B00833E11 /* CCActionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 15C30C511463918B00833E11 /* CCActionCamera.m */; };
@@ -233,6 +234,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1500ABD314AE047B00097F49 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		1500ABD414AE047B00097F49 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		1500ABD514AE047B00097F49 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		1500ABD614AE047B00097F49 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		1500ABDC14AE0C5800097F49 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		1500ABE014AE19F600097F49 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		1502B6C91475E3EF000CE8DC /* OFConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OFConstants.h; path = DodgeIt.xcodeproj/OFConstants.h; sourceTree = SOURCE_ROOT; };
 		1502B6CA1475E3EF000CE8DC /* OFConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OFConstants.m; path = DodgeIt.xcodeproj/OFConstants.m; sourceTree = SOURCE_ROOT; };
 		15055AD7147F5413006BA8F0 /* poweruptext-hd.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "poweruptext-hd.fnt"; sourceTree = "<group>"; };
@@ -247,7 +254,6 @@
 		152EBA2514AB629D007FC674 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		152EBA2614AB629D007FC674 /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
 		152EBA2714AB629D007FC674 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		152EBA3214AB924F007FC674 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		153A21871495815C00F06F4C /* deathscreen-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deathscreen-hd.png"; sourceTree = "<group>"; };
 		153A21881495815C00F06F4C /* deathscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deathscreen.png; sourceTree = "<group>"; };
 		154AF79F1469D09500CAB309 /* background-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-hd.png"; sourceTree = "<group>"; };
@@ -338,10 +344,6 @@
 		15C30C321463918B00833E11 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		15C30C341463918B00833E11 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		15C30C3A1463918B00833E11 /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fps_images.png; path = Resources/fps_images.png; sourceTree = "<group>"; };
-		15C30C3C1463918B00833E11 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "Resources/Icon-72.png"; sourceTree = "<group>"; };
-		15C30C3E1463918B00833E11 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "Resources/Icon-Small-50.png"; sourceTree = "<group>"; };
-		15C30C401463918B00833E11 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "Resources/Icon-Small.png"; sourceTree = "<group>"; };
-		15C30C421463918B00833E11 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Resources/Icon-Small@2x.png"; sourceTree = "<group>"; };
 		15C30C481463918B00833E11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
 		15C30C491463918B00833E11 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Resources/iTunesArtwork; sourceTree = "<group>"; };
 		15C30C4D1463918B00833E11 /* CCAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CCAction.h; path = libs/cocos2d/CCAction.h; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1500ABDD14AE0C5800097F49 /* iAd.framework in Frameworks */,
 				157458CE1494711200E09C1D /* MessageUI.framework in Frameworks */,
 				15C30C2D1463918B00833E11 /* AudioToolbox.framework in Frameworks */,
 				15EE53E11475855D003E76BA /* OpenFeint.framework in Frameworks */,
@@ -747,7 +750,8 @@
 		15C30C171463918A00833E11 = {
 			isa = PBXGroup;
 			children = (
-				152EBA3214AB924F007FC674 /* Entitlements.plist */,
+				1500ABE014AE19F600097F49 /* Entitlements.plist */,
+				1500ABDC14AE0C5800097F49 /* iAd.framework */,
 				157458CD1494711200E09C1D /* MessageUI.framework */,
 				157458CC1494710300E09C1D /* AudioToolbox.framework */,
 				15C30C361463918B00833E11 /* DodgeIt */,
@@ -838,10 +842,10 @@
 				15DC6B4A146E35DE00F18E22 /* Titlescreen Images */,
 				15927871146452860003BBE7 /* Sprites */,
 				15C30C3A1463918B00833E11 /* fps_images.png */,
-				15C30C3C1463918B00833E11 /* Icon-72.png */,
-				15C30C3E1463918B00833E11 /* Icon-Small-50.png */,
-				15C30C401463918B00833E11 /* Icon-Small.png */,
-				15C30C421463918B00833E11 /* Icon-Small@2x.png */,
+				1500ABD314AE047B00097F49 /* Icon-72.png */,
+				1500ABD414AE047B00097F49 /* Icon-Small-50.png */,
+				1500ABD514AE047B00097F49 /* Icon-Small.png */,
+				1500ABD614AE047B00097F49 /* Icon-Small@2x.png */,
 				15C30C481463918B00833E11 /* Info.plist */,
 				15C30C491463918B00833E11 /* iTunesArtwork */,
 			);
@@ -1230,10 +1234,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				15C30C3B1463918B00833E11 /* fps_images.png in Resources */,
-				15C30C3D1463918B00833E11 /* Icon-72.png in Resources */,
-				15C30C3F1463918B00833E11 /* Icon-Small-50.png in Resources */,
-				15C30C411463918B00833E11 /* Icon-Small.png in Resources */,
-				15C30C431463918B00833E11 /* Icon-Small@2x.png in Resources */,
 				15C30C4A1463918B00833E11 /* iTunesArtwork in Resources */,
 				15C30D981463A20300833E11 /* ball-hd.png in Resources */,
 				15C30DA21463A4DE00833E11 /* ball.png in Resources */,
@@ -1324,7 +1324,11 @@
 				1529687414A2C3A8004BCF99 /* powerup.caf in Resources */,
 				152EBA2914AB629D007FC674 /* README.txt in Resources */,
 				152EBA2A14AB629D007FC674 /* release_notes.txt in Resources */,
-				152EBA3314AB924F007FC674 /* Entitlements.plist in Resources */,
+				1500ABD714AE047B00097F49 /* Icon-72.png in Resources */,
+				1500ABD814AE047B00097F49 /* Icon-Small-50.png in Resources */,
+				1500ABD914AE047B00097F49 /* Icon-Small.png in Resources */,
+				1500ABDA14AE047B00097F49 /* Icon-Small@2x.png in Resources */,
+				1500ABE114AE19F600097F49 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1444,6 +1448,83 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		1500ABDE14AE189400097F49 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gary COHEN";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
+				);
+				"OTHER_LDFLAGS[sdk=iphoneos*][arch=*]" = "";
+				SDKROOT = iphoneos;
+			};
+			name = Distribution;
+		};
+		1500ABDF14AE189400097F49 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gary COHEN";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gary COHEN";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../Downloads/OpenFeint.2.12.5\"",
+					"\"$(SRCROOT)/../../../Downloads/OpenFeint-1.2.12.5\"",
+					"\"$(SRCROOT)/../../../Downloads/OpenFeint-1.2.12.5/OpenFeintFramework/output/Release-universal\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = DodgeIt/Prefix.pch;
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = DodgeIt/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/DodgeIt\"",
+					"\"$(SRCROOT)/DodgeIt/TestFlightSDK0\"",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-lz",
+					"-all_load",
+					"-ObjC",
+					"-weak_framework",
+					iAd,
+				);
+				"OTHER_LDFLAGS[sdk=iphoneos*][arch=*]" = (
+					"-lz",
+					"-all_load",
+					"-weak_library",
+					/usr/lib/libSystem.B.dylib,
+					"-weak_framework",
+					iAd,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Distribution;
+		};
 		152EBA2E14AB7787007FC674 /* Ad Hoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1479,7 +1560,7 @@
 					armv6,
 					armv7,
 				);
-				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gary COHEN (HV7P7BV2GF)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1505,6 +1586,8 @@
 					"-lz",
 					"-all_load",
 					"-ObjC",
+					"-weak_framework",
+					iAd,
 				);
 				"OTHER_LDFLAGS[sdk=iphoneos*][arch=*]" = (
 					"-lz",
@@ -1550,8 +1633,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gary COHEN (HV7P7BV2GF)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gary COHEN";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gary COHEN";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
@@ -1573,7 +1656,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gary COHEN (HV7P7BV2GF)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1601,6 +1684,8 @@
 					"-lz",
 					"-all_load",
 					"-ObjC",
+					"-weak_framework",
+					iAd,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1619,7 +1704,8 @@
 					armv7,
 				);
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gary COHEN (HV7P7BV2GF)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gary COHEN";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gary COHEN";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1644,12 +1730,16 @@
 					"-lz",
 					"-all_load",
 					"-ObjC",
+					"-weak_framework",
+					iAd,
 				);
 				"OTHER_LDFLAGS[sdk=iphoneos*][arch=*]" = (
 					"-lz",
 					"-all_load",
 					"-weak_library",
 					/usr/lib/libSystem.B.dylib,
+					"-weak_framework",
+					iAd,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1668,6 +1758,7 @@
 			buildConfigurations = (
 				15C30D921463918E00833E11 /* Debug */,
 				15C30D931463918E00833E11 /* Release */,
+				1500ABDE14AE189400097F49 /* Distribution */,
 				152EBA2E14AB7787007FC674 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1678,6 +1769,7 @@
 			buildConfigurations = (
 				15C30D951463918E00833E11 /* Debug */,
 				15C30D961463918E00833E11 /* Release */,
+				1500ABDF14AE189400097F49 /* Distribution */,
 				152EBA2F14AB7787007FC674 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;

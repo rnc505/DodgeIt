@@ -19,6 +19,8 @@
     AppOFDelegate		*ofDelegate;
     NSMutableArray      *powerups;
     int running;
+    bool isiAdOnScreen;
+    bool isadMobOnScreen;
    
 }
 
@@ -27,9 +29,14 @@
 
 @property (readwrite, assign) int running;
 @property (nonatomic, retain) NSMutableArray *powerups;
+@property (nonatomic) bool isiAdOnScreen;
+@property (nonatomic) bool isadMobOnScreen;
 -(void)setUpAndRetrieveData;
 -(void)displayGoogleAd:(CGSize)adSize;
 -(void)removeGoogleAd;
 -(void)showInfoPane;
+-(void)addIAD;
+-(void)removeIAD;
+-(void)removeAllAds;
 
 @end

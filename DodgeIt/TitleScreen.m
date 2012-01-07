@@ -17,7 +17,7 @@
 #define save [NSUserDefaults standardUserDefaults]
 #define validno valid = NO;
 @implementation TitleScreen
-@synthesize feedbackButton;
+//@synthesize feedbackButton;
 
 @synthesize infoButton;
 @synthesize background;
@@ -57,6 +57,12 @@ int whichBackgroundColor=0;
 	return scene;
 }
 
+-(void)removeAllAds
+{
+    [UIAppDelegate removeAllAds];
+}
+
+
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
@@ -72,13 +78,15 @@ int whichBackgroundColor=0;
     if(touchingFast){
         [[SimpleAudioEngine sharedEngine] playEffect:@"optionclicked.wav"];
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-        NSLog(@"PREinfobutton: %i",[infoButton retainCount]);
+      //  NSLog(@"PREinfobutton: %i",[infoButton retainCount]);
        // [infoButton retain];
         [infoButton removeFromSuperview];
-        [feedbackButton removeFromSuperview];
-        NSLog(@"POSTinfobutton: %i",[infoButton retainCount]);
+       // [feedbackButton removeFromSuperview];
+        //NSLog(@"POSTinfobutton: %i",[infoButton retainCount]);
         UIAppDelegate.mode = 1;
-        [(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];
+        /*[(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];
+        [UIAppDelegate removeIAD];*/
+        [self removeAllAds];
       // [[CCDirector sharedDirector] replaceScene:
        //  [CCTransitionPageTurn transitionWithDuration:.8  scene:[HelloWorldLayer scene] backwards:NO]];    
         [self seedRandomTransition];
@@ -87,13 +95,15 @@ int whichBackgroundColor=0;
     if(touchingMedium){
         [[SimpleAudioEngine sharedEngine] playEffect:@"optionclicked.wav"];
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-        NSLog(@"PREinfobutton: %i",[infoButton retainCount]);
+     //   NSLog(@"PREinfobutton: %i",[infoButton retainCount]);
        // [infoButton retain];
         [infoButton removeFromSuperview];
-        [feedbackButton removeFromSuperview];
-         NSLog(@"POSTinfobutton: %i",[infoButton retainCount]);
+       // [feedbackButton removeFromSuperview];
+       //  NSLog(@"POSTinfobutton: %i",[infoButton retainCount]);
         UIAppDelegate.mode = 2;
-        [(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];
+      /* [(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];
+        [UIAppDelegate removeIAD];*/
+        [self removeAllAds];
         //[[CCDirector sharedDirector] replaceScene:
          //[CCTransitionRotoZoom transitionWithDuration:.8  scene:[HelloWorldLayer scene] ]];         
         [self seedRandomTransition];
@@ -102,14 +112,16 @@ int whichBackgroundColor=0;
     if(touchingSlow){
         [[SimpleAudioEngine sharedEngine] playEffect:@"optionclicked.wav"];
         [[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-        NSLog(@"PREinfobutton: %i",[infoButton retainCount]);
+      //  NSLog(@"PREinfobutton: %i",[infoButton retainCount]);
         //[infoButton retain];
         [infoButton removeFromSuperview];
-        [feedbackButton removeFromSuperview];
-         NSLog(@"POSTinfobutton: %i",[infoButton retainCount]);
+       // [feedbackButton removeFromSuperview];
+        // NSLog(@"POSTinfobutton: %i",[infoButton retainCount]);
         UIAppDelegate.mode = 3;
-        [(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];
-       // [[CCDirector sharedDirector] replaceScene:
+       /*[(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];
+       [UIAppDelegate removeIAD];*/
+        [self removeAllAds];
+        // [[CCDirector sharedDirector] replaceScene:
          //[CCTransitionShrinkGrow transitionWithDuration:.8  scene:[HelloWorldLayer scene] ]];   
         [self seedRandomTransition];
     }
@@ -267,22 +279,22 @@ int whichBackgroundColor=0;
        [self addChild:highScores];
         
         
-         NSLog(@"pre-First Add.  Retain Count: %i", [infoButton retainCount]);
+         //NSLog(@"pre-First Add.  Retain Count: %i", [infoButton retainCount]);
         infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-        NSLog(@"infobutton init: %i",[infoButton retainCount]);
+       // NSLog(@"infobutton init: %i",[infoButton retainCount]);
         infoButton.tag = 1333;
         [[[CCDirector sharedDirector] openGLView] addSubview:infoButton];
         infoButton.center = ccp(24.5, 480-74.5);        
         [infoButton addTarget:self action:@selector(showInfoPane) forControlEvents:UIControlEventTouchUpInside];
-        NSLog(@"First Add.  Retain Count: %i", [infoButton retainCount]);
+        //NSLog(@"First Add.  Retain Count: %i", [infoButton retainCount]);
          
-        //BETA TEST
+       /* //BETA TEST
         feedbackButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
         feedbackButton.tag = 2666;
         [[[CCDirector sharedDirector] openGLView] addSubview:feedbackButton];
         feedbackButton.center = ccp(68-11, 480-74.5);
         [feedbackButton addTarget:self action:@selector(showFeedback) forControlEvents:UIControlEventTouchUpInside];
-        //END BETA TEST
+        //END BETA TEST*/
         
         
         /*Settings = [CCSprite spriteWithFile:@"SETTINGS.png"];
@@ -319,7 +331,8 @@ int whichBackgroundColor=0;
         }
         UIAppDelegate.running = 1;
         
-        [(AppDelegate*)[[UIApplication sharedApplication] delegate] displayGoogleAd:CGSizeMake(320, 50)];
+       // [(AppDelegate*)[[UIApplication sharedApplication] delegate] displayGoogleAd:CGSizeMake(320, 50)];
+        [(AppDelegate*)[[UIApplication sharedApplication] delegate] addIAD];
         //UIAppDelegate.
         
         /*[[NSNotificationCenter defaultCenter] addObserverForName:@"goHomeNow"  object:nil queue:nil usingBlock:^(NSNotification *notif) {
@@ -334,10 +347,10 @@ int whichBackgroundColor=0;
     return self;
 }
 
--(void)showFeedback
+/*-(void)showFeedback
 {
     [TestFlight openFeedbackView];
-}
+}*/
 
 -(void)goHomeNow1
 {
@@ -347,7 +360,7 @@ int whichBackgroundColor=0;
 
 - (void)didReceiveMessage:(NSString *)message {
 	NSLog(@"SUCCESS");
-    NSLog(@"Pre-reAddSubview.  didRecieveMessage.  Retain Count: %i",[infoButton retainCount]);
+    //NSLog(@"Pre-reAddSubview.  didRecieveMessage.  Retain Count: %i",[infoButton retainCount]);
     /*infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
     infoButton.tag = 1333;
     [infoButton removeFromSuperview];
@@ -368,7 +381,7 @@ int whichBackgroundColor=0;
     /* [UIAppDelegate.window addSubview:[[CCDirector sharedDirector] openGLView]];
     [[CCDirector sharedDirector] replaceScene:[TitleScreen scene]];*/
    // [(AppDelegate*)[[UIApplication sharedApplication] delegate] switchViewControllers];
-    NSLog(@"Post-reAddSubview.  didRecieveMessage.  Retain Count: %i",[infoButton retainCount]);
+  //  NSLog(@"Post-reAddSubview.  didRecieveMessage.  Retain Count: %i",[infoButton retainCount]);
     //[(AppDelegate*)[[UIApplication sharedApplication] delegate] displayGoogleAd:CGSizeMake(320, 50)];
     /*CCLayerColor *help = [[CCLayerColor alloc] initWithColor:ccc4(0, 0, 0, 0)];
     help.position = ccp(0,0);
@@ -393,10 +406,10 @@ int whichBackgroundColor=0;
      [[CCDirector sharedDirector] pause];
     NSLog(@"WIN");
     //[[[[CCDirector sharedDirector] openGLView] window] :infoButton];
-    NSLog(@"Pre-RemoveFromSuperView.  Retain Count: %i",[infoButton retainCount]);
+    //NSLog(@"Pre-RemoveFromSuperView.  Retain Count: %i",[infoButton retainCount]);
     //[infoButton retain];
    // [infoButton removeFromSuperview];
-      NSLog(@"Post-RemoveFromSuperView.  Retain Count: %i",[infoButton retainCount]);
+    //  NSLog(@"Post-RemoveFromSuperView.  Retain Count: %i",[infoButton retainCount]);
     //UIAppDelegate.mode = 1;
     
    // [(AppDelegate*)[[UIApplication sharedApplication] delegate] removeGoogleAd];

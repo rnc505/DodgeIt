@@ -38,6 +38,7 @@
 -(float)getYMovement:(float)dx;
 -(void)runTests;
 -(void)seedRandomTransition;
+-(void)removeAllAds;
 @property (nonatomic, retain) IBOutlet CCSprite *background;
 @property (nonatomic, retain) IBOutlet CCSprite *DodgeText;
 @property (nonatomic, retain) IBOutlet CCSprite *ItText;
@@ -54,5 +55,5 @@
 @property (nonatomic, copy) IBOutlet NSArray *ballsA;
 @property (nonatomic, retain) IBOutlet NSMutableArray *ballsMotionA;
 @property (nonatomic, retain) IBOutlet UIButton *infoButton;
-@property (nonatomic, retain) IBOutlet UIButton *feedbackButton;
+//@property (nonatomic, retain) IBOutlet UIButton *feedbackButton;
 @end

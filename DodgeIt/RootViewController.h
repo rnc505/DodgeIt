@@ -7,17 +7,22 @@
 //
 #import <UIKit/UIKit.h>
 #import "GADBannerView.h"
+#import <iAd/iAd.h>
 
 
 
-
-@interface RootViewController : UIViewController {
+@interface RootViewController : UIViewController <ADBannerViewDelegate> {
     GADBannerView *gADBbannerView;
+    ADBannerView *bannerView;
+    BOOL isiAdOnScreen;
+    BOOL isadMobOnScreen;
 }
 -(void) addAdMobBanner:(CGSize)adSize;
 -(void)removeAdMobBanner;
 -(void)showInfoPane;
+-(void)showiAd;
+-(void)removeiAd;
 
-
+@property (nonatomic, retain) ADBannerView *bannerView;
 
 @end

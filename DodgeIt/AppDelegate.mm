@@ -22,7 +22,7 @@
 #define validno valid = NO;
 @implementation AppDelegate
 
-@synthesize window;
+@synthesize window,isiAdOnScreen,isadMobOnScreen;
 
 - (void) removeStartupFlicker
 {
@@ -147,7 +147,7 @@
     //[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"gamemusic.mp3"];
     
     //[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"mainmenu.caf"];
-    [TestFlight takeOff:@"07e5f872adf04a6a0c109b1cf2144e4e_NTAxNTYyMDExLTEyLTI4IDA5OjI5OjQ3Ljg0MTAyMw"];
+    //[TestFlight takeOff:@"07e5f872adf04a6a0c109b1cf2144e4e_NTAxNTYyMDExLTEyLTI4IDA5OjI5OjQ3Ljg0MTAyMw"];
     
 }
 
@@ -294,17 +294,45 @@
 	[super dealloc];
 }
 
+-(void)addIAD
+{
+    self.isiAdOnScreen = YES;
+    [viewController showiAd];
+}
+-(void)removeIAD
+{
+    self.isiAdOnScreen = NO;
+    [viewController removeiAd];
+}
+
 -(void)displayGoogleAd:(CGSize)adSize{
+    self.isadMobOnScreen = YES;
     [viewController addAdMobBanner:adSize];
 }
 
 
 
 -(void)removeGoogleAd{
+    self.isadMobOnScreen = NO;
     [viewController removeAdMobBanner];
 }
 -(void)showInfoPane{
     [viewController showInfoPane];
+}
+
+-(void)removeAllAds
+{
+    NSLog(@"is iad on screen: %@ and is admob onscreen: %@",self.isiAdOnScreen ?@"YES":@"NO",self.isadMobOnScreen?@"YES":@"NO");
+    NSLog(@"Remove all called");
+    if(self.isiAdOnScreen)
+    {
+        NSLog(@"From APPDEL - removing iad");
+        [self removeIAD];
+    }
+    if(self.isadMobOnScreen){
+        NSLog(@"From APPDEL - removing admob");
+        [self removeGoogleAd];
+    }
 }
 
 @synthesize mode,powerups,running;//,deviceIdentifier;

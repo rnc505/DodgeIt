@@ -12,7 +12,7 @@
 //
 
 #import "cocos2d.h"
-
+#import "AppDelegate.h"
 #import "RootViewController.h"
 #import "GameConfig.h"
 #import "InfopaneViewController.h"
@@ -20,6 +20,7 @@
 #define UIAppDelegate \
 ((AppDelegate *)[UIApplication sharedApplication].delegate)
 @implementation RootViewController
+@synthesize bannerView;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -141,15 +142,20 @@
 }
 
 - (void)viewDidUnload {
+	self.bannerView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     gADBbannerView.delegate = nil;
     [gADBbannerView release];
+    self.bannerView = nil;
+    bannerView.delegate = nil;
+    [bannerView release];
     // e.g. self.myOutlet = nil;
 }
 
 
 - (void)dealloc {
+	//self.bannerView = nil;
     [super dealloc];
 }
 
@@ -162,10 +168,39 @@
     [self presentModalViewController:navigationController animated:YES];
    // [self.view addSubview:navigationController.view];
 }
+static NSString * const kADBannerViewClass = @"ADBannerView";
 
+-(void)showiAd
+{
+    CGSize adSize = CGSizeMake(320, 50);
+    
+    CGSize winSize = [[CCDirector sharedDirector]winSize];
+    if(NSClassFromString(kADBannerViewClass) != nil)
+       {
+           self.bannerView = [[ADBannerView alloc] initWithFrame:CGRectMake(winSize.width-adSize.width, winSize.height-adSize.height,
+                                                                                           
+                                                                                           adSize.width,
+                                                                                           adSize.height)];
+           [self.bannerView setRequiredContentSizeIdentifiers:[NSSet setWithObjects:
+                                                               ADBannerContentSizeIdentifier320x50,
+                                                               ADBannerContentSizeIdentifier480x32, nil]];
+           self.bannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifier320x50;
+           [self.bannerView setDelegate:self];
+           [self.view addSubview:self.bannerView];
+           NSLog(@"iAd Has been Added to VIEWS");
+       }
+}
+
+
+-(void)removeiAd
+{
+    NSLog(@"iAd has been Removed from Views");
+    [bannerView removeFromSuperview];
+    [bannerView release];
+}
 
 -(void)removeAdMobBanner{
-    NSLog(@"calling removeadbanner");
+    NSLog(@"Removeding adMob");
     //NSLog(@"remove google ad");
     [gADBbannerView removeFromSuperview];
     [gADBbannerView release];
@@ -176,7 +211,7 @@
 
 
 -(void) addAdMobBanner:(CGSize)adSize{
-    //NSLog(@"adding Admob");
+    NSLog(@"adding Admob");
     CGSize winSize = [[CCDirector sharedDirector]winSize];
     // Create a view of the standard size at the bottom of the screen.
     gADBbannerView = [[GADBannerView alloc]
@@ -204,17 +239,41 @@ didFailToReceiveAdWithError:(GADRequestError *)error {
     NSLog(@"adView:didFailToReceiveAdWithError:%@", [error localizedDescription]);
 }
 
-- (void)adViewDidReceiveAd:(GADBannerView *)bannerView {
+- (void)adViewDidReceiveAd:(GADBannerView *)abannerView {
     [UIView beginAnimations:@"BannerSlide" context:nil];
-    bannerView.frame = CGRectMake(0.0,
+    abannerView.frame = CGRectMake(0.0,
                                   self.view.frame.size.height -
-                                  bannerView.frame.size.height,
-                                  bannerView.frame.size.width,
-                                  bannerView.frame.size.height);
+                                  abannerView.frame.size.height,
+                                  abannerView.frame.size.width,
+                                  abannerView.frame.size.height);
     [UIView commitAnimations];
 }
 
+#pragma mark ADBannerViewDelegate
 
+-(void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    
+}
+
+-(void)bannerViewActionDidFinish:(ADBannerView *)banner
+{
+    if([[CCDirector sharedDirector] isPaused]){
+        [[CCDirector sharedDirector] resume];
+    }
+}
+-(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+    NSLog(@"fail");
+    [UIAppDelegate displayGoogleAd:CGSizeMake(320, 50)];
+}
+
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
+{
+    if(!willLeave){
+        [[CCDirector sharedDirector] pause];
+    }
+    return YES;
+}
 
 @end
-
