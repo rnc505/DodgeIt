@@ -342,6 +342,10 @@ int whichBackgroundColor=0;
            // [self didReceiveMessage:@"hulo"];
         }];*/
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goHomeNow1) name:@"goHomeNow" object:nil];
+        validno;
+        if(![save secureBoolForKey:@"How To Play" valid:&valid]){
+            [self performSelector:@selector(showHowToPlay) withObject:nil afterDelay:.1f];
+        }
     }
     
     return self;
@@ -351,6 +355,63 @@ int whichBackgroundColor=0;
 {
     [TestFlight openFeedbackView];
 }*/
+
+-(void)showHowToPlay
+{
+    self.isTouchEnabled = NO;
+   // [[CCDirector sharedDirector] stopAnimation];
+   // [self pauseSchedulerAndActions];
+    CCLayerColor *howToLayer = [[CCLayerColor alloc] initWithColor:ccc4(0,0,0,120) width:320 height:480];
+    howToLayer.position = ccp(0,0);
+    howToLayer.tag = 160240;
+    CCSprite *bckHowto = [[CCSprite alloc] initWithFile:@"deathscreen.png"];
+    bckHowto.tag = 160241;
+    bckHowto.position = ccp(160,240);
+    bckHowto.scale = .1;
+    
+    NSString *howToString = [[[NSString alloc] initWithString:@"- Use your finger to touch and drag the square around dodging the balls.               - Press down anywhere on the screen with two fingers to pause.                   - Win crazy amounts of points and earn useful power-ups to help you achieve better scores."]autorelease];
+    
+    CCMenuItemLabel *HERES = [[CCMenuItemLabel alloc] initWithLabel:[CCLabelTTF labelWithString:@"HERE'S HOW TO PLAY:" fontName:@"Arial" fontSize:20] target:nil selector:nil];
+    
+    CCLabelTTF *label123 = [[CCLabelTTF alloc]initWithString:howToString dimensions:CGSizeMake(250,135) alignment:UITextAlignmentLeft lineBreakMode:UILineBreakModeWordWrap fontName:@"Arial" fontSize:15];
+    
+    CCMenuItemLabel *HowTo = [CCMenuItemLabel itemWithLabel:label123 target:nil selector:nil];
+    
+    /*[[CCMenuItemLabel alloc] initWithLabel:[CCLabelTTF labelWithString:howToString fontName:@"Arial" fontSize:12] target:nil selector:nil];*/
+
+
+    
+    CCMenuItemLabel *exit = [[CCMenuItemLabel alloc] initWithLabel:[CCLabelTTF labelWithString:@"EXIT" fontName:@"Arial" fontSize:24] target:self selector:@selector(closeExitMenu)];
+    
+    CCMenu *howToMenu = [CCMenu menuWithItems:HERES,HowTo,exit, nil];
+    [howToMenu alignItemsVerticallyWithPadding:8];
+    howToMenu.tag = 160242;
+    howToMenu.position = ccp(160,240);
+    [self addChild:howToLayer z:1 tag:160240];
+    [howToLayer addChild:howToMenu z:10 tag:160242];
+    [howToLayer addChild:bckHowto z:2 tag:160241];
+    
+    [howToMenu setOpacity:0];
+    [bckHowto setOpacity:0];
+    
+    [bckHowto runAction:[CCSpawn actions:[CCScaleTo actionWithDuration:.4 scaleX:1.2 scaleY:1.5],[CCFadeIn actionWithDuration:.4],nil]];
+    [howToMenu runAction:[CCFadeIn actionWithDuration:.4]];
+    //howToLayer.isTouchEnabled = YES;
+}
+
+-(void)closeExitMenu
+{
+    NSLog(@"closeExitMenu - START");
+    [[[self getChildByTag:160240] getChildByTag:160242] runAction:[CCFadeOut actionWithDuration:.3]];
+    [[[self getChildByTag:160240] getChildByTag:160241] runAction:[CCSpawn actions:[CCScaleTo actionWithDuration:.4 scaleX:(.1) scaleY:(.1)],[CCSequence actions:[CCFadeOut actionWithDuration:.5],[CCCallBlock actionWithBlock:(^{
+        
+        [self removeChildByTag:160240 cleanup:YES];
+        
+    })],nil],nil]];
+    self.isTouchEnabled = YES;
+    NSLog(@"closeExitMenu - END");
+    [save setSecureBool:YES forKey:@"How To Play"];
+}
 
 -(void)goHomeNow1
 {

@@ -171,6 +171,8 @@
         [save setSecureBool:NO forKey:POWER_PACMAN];
         [save setSecureBool:NO forKey:POWER_SHIELD_MULTI];
         
+        [save setSecureBool:NO forKey:@"How To Play"];
+        
         [save setSecureInteger:0 forKey:@"SlowHighScore"];
         [save setSecureInteger:0 forKey:@"MediumHighScore"];
         [save setSecureInteger:0 forKey:@"FastHighScore"];
